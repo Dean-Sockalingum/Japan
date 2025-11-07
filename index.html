@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan 2025 Keepsakes 🇯🇵</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗾 Japan 2025 Holiday Memories</h1>
+            <p class="tagline">Capture your unforgettable moments in the Land of the Rising Sun</p>
+            
+            <!-- Background Music Player -->
+            <div class="music-player">
+                <button id="musicToggle" class="music-toggle" onclick="toggleMusic()">
+                    <span class="music-icon">🎵</span>
+                    <span class="music-status">Play Music</span>
+                </button>
+                <div class="music-controls" id="musicControls" style="display: none;">
+                    <input type="range" id="volumeControl" min="0" max="100" value="30" class="volume-slider">
+                    <span class="volume-label">🔊</span>
+                </div>
+            </div>
+            
+            <!-- Hidden audio element -->
+            <audio id="bgMusic" loop>
+                <source src="https://www.bensound.com/bensound-music/bensound-japan.mp3" type="audio/mpeg">
+                <!-- Fallback to YouTube Audio Library style Japanese music -->
+                Your browser does not support the audio element.
+            </audio>
+        </header>
+
+        <nav class="tab-navigation">
+            <button class="tab-btn active" data-tab="memories">✨ Memories</button>
+            <button class="tab-btn" data-tab="travel">🗺️ Travel Guide</button>
+            <button class="tab-btn" data-tab="routes">🚶 Routes</button>
+            <button class="tab-btn" data-tab="quiz">🎯 Quiz</button>
+            <button class="tab-btn" data-tab="photoftheday">📸 Photo of the Day</button>
+            <button class="tab-btn" data-tab="highlights">🎊 Highlights</button>
+            <button class="tab-btn" data-tab="facts">📚 Facts</button>
+            <button class="tab-btn" data-tab="didyouknow">💡 Did You Know</button>
+            <button class="tab-btn" data-tab="bloopers">😂 Bloopers Reel</button>
+            <button class="tab-btn" data-tab="archive">📁 Archive</button>
+        </nav>
+
+        <!-- Memories Tab -->
+        <div id="memories" class="tab-content active">
+            <div class="upload-section">
+                <h2>📸 Upload Your Photos</h2>
+                <div class="upload-area" id="uploadArea">
+                    <p>🖼️ Drag & drop photos here or click to browse</p>
+                    <input type="file" id="photoInput" accept="image/*" multiple hidden>
+                </div>
+                <div id="photoGallery" class="photo-gallery"></div>
+            </div>
+
+            <div class="memory-section">
+                <h2>✍️ Capture Your Memories</h2>
+                <form id="memoryForm">
+                    <div class="form-group">
+                        <label for="memoryTitle">Title</label>
+                        <input type="text" id="memoryTitle" placeholder="e.g., Cherry Blossoms in Kyoto" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="memoryType">Type</label>
+                        <select id="memoryType" required>
+                            <option value="">Select type...</option>
+                            <option value="best">✨ Best Moment</option>
+                            <option value="funny">😄 Funny Moment</option>
+                            <option value="food">🍜 Food Experience</option>
+                            <option value="culture">⛩️ Cultural Experience</option>
+                            <option value="adventure">🎌 Adventure</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="memoryText">Your Story</label>
+                        <textarea id="memoryText" rows="5" placeholder="Share your experience..." required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="memoryDate">Date</label>
+                        <input type="date" id="memoryDate" required>
+                    </div>
+                    <button type="submit" class="btn-primary">💾 Save Memory</button>
+                </form>
+            </div>
+
+            <div class="memories-list" id="memoriesList">
+                <h2>📝 Your Recent Memories</h2>
+                <div id="recentMemories"></div>
+            </div>
+        </div>
+
+        <!-- Travel Guide Tab -->
+        <div id="travel" class="tab-content">
+            <h2>🗺️ Your Japan Travel Companion</h2>
+            
+            <div class="travel-section">
+                <h3>🏨 Recommended Hotels</h3>
+                <div class="places-grid">
+                    <div class="place-card" data-category="Hotel" data-coords="35.6812,139.7671">
+                        <div class="place-header">
+                            <h3>Park Hyatt Tokyo</h3>
+                            <div class="place-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <p class="place-description">Luxury hotel in Shinjuku with stunning city views. Featured in "Lost in Translation".</p>
+                        <div class="place-info">
+                            <span class="place-badge">Shinjuku, Tokyo</span>
+                            <span class="place-badge">💰💰💰💰</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://www.hyatt.com/park-hyatt/tokyo" alt="QR Code">
+                            <p class="qr-label">Scan for details</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <a href="https://www.hyatt.com/park-hyatt/tokyo" target="_blank" class="place-link">🔗 Website</a>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+
+                    <div class="place-card" data-category="Hotel" data-coords="35.0116,135.7681">
+                        <div class="place-header">
+                            <h3>The Ritz-Carlton Kyoto</h3>
+                            <div class="place-rating">⭐⭐⭐⭐⭐</div>
+                        </div>
+                        <p class="place-description">Elegant riverside hotel blending traditional Japanese aesthetics with modern luxury.</p>
+                        <div class="place-info">
+                            <span class="place-badge">Kyoto</span>
+                            <span class="place-badge">💰💰💰💰</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://www.ritzcarlton.com/kyoto" alt="QR Code">
+                            <p class="qr-label">Scan for details</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <a href="https://www.ritzcarlton.com/kyoto" target="_blank" class="place-link">🔗 Website</a>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+
+                    <div class="place-card" data-category="Hotel" data-coords="35.6586,139.7454">
+                        <div class="place-header">
+                            <h3>Ryokan Sawanoya</h3>
+                            <div class="place-rating">⭐⭐⭐⭐</div>
+                        </div>
+                        <p class="place-description">Traditional Japanese inn offering authentic ryokan experience in central Tokyo.</p>
+                        <div class="place-info">
+                            <span class="place-badge">Yanaka, Tokyo</span>
+                            <span class="place-badge">💰💰</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://www.sawanoya.com" alt="QR Code">
+                            <p class="qr-label">Scan for details</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <a href="http://www.sawanoya.com" target="_blank" class="place-link">🔗 Website</a>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="travel-section">
+                <h3>🍜 Must-Try Restaurants</h3>
+                <div class="places-grid">
+                    <div class="place-card" data-category="Restaurant" data-coords="35.6654,139.7707">
+                        <div class="place-header">
+                            <h3>Sukiyabashi Jiro</h3>
+                            <div class="place-rating">⭐⭐⭐ Michelin</div>
+                        </div>
+                        <p class="place-description">World-famous sushi restaurant by Jiro Ono. Reservations required months in advance.</p>
+                        <div class="place-info">
+                            <span class="place-badge">🍣 Sushi</span>
+                            <span class="place-badge">Ginza, Tokyo</span>
+                            <span class="place-badge">💰💰💰💰💰</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=35.6654,139.7707" alt="QR Code">
+                            <p class="qr-label">Scan for location</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+
+                    <div class="place-card" data-category="Restaurant" data-coords="35.0116,135.7681">
+                        <div class="place-header">
+                            <h3>Nishiki Warai</h3>
+                            <div class="place-rating">⭐⭐⭐⭐</div>
+                        </div>
+                        <p class="place-description">Authentic okonomiyaki (Japanese savory pancake) in the famous Nishiki Market.</p>
+                        <div class="place-info">
+                            <span class="place-badge">🥞 Okonomiyaki</span>
+                            <span class="place-badge">Kyoto</span>
+                            <span class="place-badge">💰💰</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://nishikiwarai.com" alt="QR Code">
+                            <p class="qr-label">Scan for details</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <a href="https://nishikiwarai.com" target="_blank" class="place-link">🔗 Website</a>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+
+                    <div class="place-card" data-category="Restaurant" data-coords="34.6937,135.5023">
+                        <div class="place-header">
+                            <h3>Ichiran Ramen</h3>
+                            <div class="place-rating">⭐⭐⭐⭐</div>
+                        </div>
+                        <p class="place-description">Famous tonkotsu ramen chain with solo dining booths for focused eating experience.</p>
+                        <div class="place-info">
+                            <span class="place-badge">🍜 Ramen</span>
+                            <span class="place-badge">Multiple Locations</span>
+                            <span class="place-badge">💰</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://ichiran.com/english" alt="QR Code">
+                            <p class="qr-label">Scan for details</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <a href="https://ichiran.com/english" target="_blank" class="place-link">🔗 Website</a>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="travel-section">
+                <h3>⛩️ Top Attractions</h3>
+                <div class="places-grid">
+                    <div class="place-card" data-category="Attraction" data-coords="35.0116,135.7681">
+                        <div class="place-header">
+                            <h3>Fushimi Inari Shrine</h3>
+                            <div class="place-rating">Must Visit!</div>
+                        </div>
+                        <p class="place-description">Iconic shrine famous for thousands of vermillion torii gates forming paths up the mountain.</p>
+                        <div class="place-info">
+                            <span class="place-badge">Kyoto</span>
+                            <span class="place-badge">🆓 Free Entry</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=35.0116,135.7681" alt="QR Code">
+                            <p class="qr-label">Scan for location</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+
+                    <div class="place-card" data-category="Attraction" data-coords="35.7148,139.7967">
+                        <div class="place-header">
+                            <h3>Senso-ji Temple</h3>
+                            <div class="place-rating">Must Visit!</div>
+                        </div>
+                        <p class="place-description">Tokyo's oldest temple with impressive Thunder Gate and bustling Nakamise shopping street.</p>
+                        <div class="place-info">
+                            <span class="place-badge">Asakusa, Tokyo</span>
+                            <span class="place-badge">🆓 Free Entry</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=35.7148,139.7967" alt="QR Code">
+                            <p class="qr-label">Scan for location</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+
+                    <div class="place-card" data-category="Attraction" data-coords="34.3947,132.4534">
+                        <div class="place-header">
+                            <h3>Hiroshima Peace Memorial</h3>
+                            <div class="place-rating">UNESCO Site</div>
+                        </div>
+                        <p class="place-description">Powerful memorial and museum dedicated to world peace and remembering history.</p>
+                        <div class="place-info">
+                            <span class="place-badge">Hiroshima</span>
+                            <span class="place-badge">💰 ¥200</span>
+                        </div>
+                        <div class="place-qr">
+                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://hpmmuseum.jp" alt="QR Code">
+                            <p class="qr-label">Scan for details</p>
+                        </div>
+                        <div class="place-actions">
+                            <button class="view-map-btn">📍 View on Map</button>
+                            <a href="http://hpmmuseum.jp" target="_blank" class="place-link">🔗 Website</a>
+                            <button class="save-place-btn">💾 Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="travel-section">
+                <h3>💾 Your Saved Places</h3>
+                <div id="savedPlacesList" class="saved-places-list">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📍</div>
+                        <p>No saved places yet. Click "Save" on any place above to add it here!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Routes Tab -->
+        <div id="routes" class="tab-content">
+            <h2>🚶 Suggested Routes & Itineraries</h2>
+            
+            <div class="routes-section">
+                <div class="route-card">
+                    <div class="route-header">
+                        <h3>🌸 Classic Tokyo 3-Day Route</h3>
+                        <span class="route-duration">3 Days</span>
+                    </div>
+                    <div class="route-content">
+                        <div class="route-day">
+                            <h4>Day 1: Traditional Tokyo</h4>
+                            <ul class="route-stops">
+                                <li>
+                                    <span class="stop-time">9:00 AM</span>
+                                    <span class="stop-name">Senso-ji Temple (Asakusa)</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.7148,139.7967" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">12:00 PM</span>
+                                    <span class="stop-name">Nakamise Shopping Street (Lunch)</span>
+                                </li>
+                                <li>
+                                    <span class="stop-time">2:00 PM</span>
+                                    <span class="stop-name">Tokyo Skytree</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.7101,139.8107" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">6:00 PM</span>
+                                    <span class="stop-name">Shibuya Crossing & Dinner</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6595,139.7004" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="route-day">
+                            <h4>Day 2: Modern Tokyo</h4>
+                            <ul class="route-stops">
+                                <li>
+                                    <span class="stop-time">10:00 AM</span>
+                                    <span class="stop-name">Meiji Shrine</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6764,139.6993" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">12:00 PM</span>
+                                    <span class="stop-name">Harajuku Takeshita Street</span>
+                                </li>
+                                <li>
+                                    <span class="stop-time">3:00 PM</span>
+                                    <span class="stop-name">TeamLab Borderless</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6270,139.7748" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">7:00 PM</span>
+                                    <span class="stop-name">Roppongi Hills Night View</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6604,139.7292" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="route-day">
+                            <h4>Day 3: Culture & Shopping</h4>
+                            <ul class="route-stops">
+                                <li>
+                                    <span class="stop-time">9:00 AM</span>
+                                    <span class="stop-name">Tsukiji Outer Market</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6654,139.7707" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">12:00 PM</span>
+                                    <span class="stop-name">Imperial Palace East Gardens</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6852,139.7528" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">3:00 PM</span>
+                                    <span class="stop-name">Akihabara Electric Town</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.7022,139.7745" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">7:00 PM</span>
+                                    <span class="stop-name">Tokyo Station & Ramen Street</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6812,139.7671" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="route-qr-section">
+                        <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=https://www.google.com/maps/dir/35.7148,139.7967/35.7101,139.8107/35.6595,139.7004" alt="Route QR Code" class="route-qr">
+                        <p class="qr-label">Scan to open full route in Google Maps</p>
+                    </div>
+                </div>
+
+                <div class="route-card">
+                    <div class="route-header">
+                        <h3>⛩️ Kyoto Heritage 2-Day Route</h3>
+                        <span class="route-duration">2 Days</span>
+                    </div>
+                    <div class="route-content">
+                        <div class="route-day">
+                            <h4>Day 1: Eastern Kyoto</h4>
+                            <ul class="route-stops">
+                                <li>
+                                    <span class="stop-time">8:00 AM</span>
+                                    <span class="stop-name">Fushimi Inari Shrine</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0116,135.7681" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">11:00 AM</span>
+                                    <span class="stop-name">Kiyomizu-dera Temple</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.9949,135.7851" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">1:00 PM</span>
+                                    <span class="stop-name">Gion District (Lunch & Geisha spotting)</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0033,135.7786" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">4:00 PM</span>
+                                    <span class="stop-name">Philosopher's Path</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0262,135.7947" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="route-day">
+                            <h4>Day 2: Northern & Western Kyoto</h4>
+                            <ul class="route-stops">
+                                <li>
+                                    <span class="stop-time">9:00 AM</span>
+                                    <span class="stop-name">Kinkaku-ji (Golden Pavilion)</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0394,135.7292" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">11:30 AM</span>
+                                    <span class="stop-name">Ryoan-ji Zen Garden</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0345,135.7183" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">2:00 PM</span>
+                                    <span class="stop-name">Arashiyama Bamboo Grove</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0170,135.6722" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">5:00 PM</span>
+                                    <span class="stop-name">Nishiki Market</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0050,135.7661" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="route-qr-section">
+                        <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=https://www.google.com/maps/dir/35.0116,135.7681/34.9949,135.7851/35.0033,135.7786" alt="Route QR Code" class="route-qr">
+                        <p class="qr-label">Scan to open full route in Google Maps</p>
+                    </div>
+                </div>
+
+                <div class="route-card">
+                    <div class="route-header">
+                        <h3>🗻 Mt. Fuji Day Trip</h3>
+                        <span class="route-duration">1 Day</span>
+                    </div>
+                    <div class="route-content">
+                        <div class="route-day">
+                            <h4>Full Day Itinerary</h4>
+                            <ul class="route-stops">
+                                <li>
+                                    <span class="stop-time">7:00 AM</span>
+                                    <span class="stop-name">Depart from Tokyo (Shinjuku Bus Terminal)</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6896,139.7006" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">9:30 AM</span>
+                                    <span class="stop-name">Mt. Fuji 5th Station</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.3606,138.7274" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">12:00 PM</span>
+                                    <span class="stop-name">Lake Kawaguchi (Lunch & Photos)</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.5095,138.7644" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">3:00 PM</span>
+                                    <span class="stop-name">Oishi Park</span>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.5162,138.8095" target="_blank" class="route-link">🗺️ Directions</a>
+                                </li>
+                                <li>
+                                    <span class="stop-time">6:00 PM</span>
+                                    <span class="stop-name">Return to Tokyo</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="route-qr-section">
+                        <img src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=https://www.google.com/maps/dir/35.6896,139.7006/35.3606,138.7274/35.5095,138.7644" alt="Route QR Code" class="route-qr">
+                        <p class="qr-label">Scan to open full route in Google Maps</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="travel-tips">
+                <h3>🎫 Transportation Tips</h3>
+                <div class="tip-card">
+                    <h4>🚄 JR Pass</h4>
+                    <p>Consider getting a 7 or 14-day JR Pass if traveling between cities. Covers Shinkansen and most JR trains.</p>
+                    <a href="https://www.jrpass.com" target="_blank" class="tip-link">Learn More →</a>
+                </div>
+                <div class="tip-card">
+                    <h4>🎴 IC Cards (Suica/Pasmo)</h4>
+                    <p>Essential for easy travel on trains, buses, and even convenience store purchases.</p>
+                    <a href="https://www.jreast.co.jp/e/pass/suica.html" target="_blank" class="tip-link">Get Suica →</a>
+                </div>
+                <div class="tip-card">
+                    <h4>📱 Google Maps</h4>
+                    <p>Download offline maps before your trip. Transit directions work perfectly in Japan!</p>
+                </div>
+            </div>
+
+            <div class="weird-facts-section">
+                <h3>🤯 Weird & Interesting Facts About These Locations</h3>
+                
+                <div class="weird-facts-grid">
+                    <div class="weird-fact-card">
+                        <h4>🚶 Shibuya Crossing</h4>
+                        <div class="weird-fact-content">
+                            <p><strong>The World's Busiest Pedestrian Crossing</strong></p>
+                            <ul class="weird-fact-list">
+                                <li>🎬 Featured in "Lost in Translation" and "Tokyo Drift"</li>
+                                <li>👥 Up to 3,000 people cross at once during peak times</li>
+                                <li>📸 Starbucks 2nd floor is the best photo spot</li>
+                                <li>🤖 Life-sized Hachiko statue nearby</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="weird-fact-card">
+                        <h4>⛩️ Fushimi Inari</h4>
+                        <div class="weird-fact-content">
+                            <p><strong>The Tunnel of 10,000 Gates</strong></p>
+                            <ul class="weird-fact-list">
+                                <li>🦊 Foxes are Inari's messengers</li>
+                                <li>💰 Each gate costs ¥400,000 to ¥1 million</li>
+                                <li>🌙 Open 24/7 - night visits are magical</li>
+                                <li>🥾 Full hike takes 2-3 hours (4km)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="weird-fact-card">
+                        <h4>🗻 Mount Fuji</h4>
+                        <div class="weird-fact-content">
+                            <p><strong>Japan's Sacred Mountain</strong></p>
+                            <ul class="weird-fact-list">
+                                <li>🏔️ Only visible 80 days per year</li>
+                                <li>⛰️ Women banned until 1868!</li>
+                                <li>🌋 Last erupted in 1707</li>
+                                <li>📧 Post office at 5th station</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="weird-fact-card">
+                        <h4>🌸 Bamboo Grove</h4>
+                        <div class="weird-fact-content">
+                            <p><strong>The Musical Forest</strong></p>
+                            <ul class="weird-fact-list">
+                                <li>🎶 Sound is a "Sound Preservation Area"</li>
+                                <li>📏 Bamboo grows 1 meter per day!</li>
+                                <li>🐵 Wild monkeys nearby</li>
+                                <li>💚 Planted as defense barrier</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="weird-fact-card">
+                        <h4>🍱 Tsukiji Market</h4>
+                        <div class="weird-fact-content">
+                            <p><strong>Fish Auction Spectacle</strong></p>
+                            <ul class="weird-fact-list">
+                                <li>🐟 Tuna sold for $3.1 million (2019)!</li>
+                                <li>⏰ Auction starts 5:30 AM</li>
+                                <li>🚚 Tiny delivery trucks everywhere</li>
+                                <li>🥚 Best tamago breakfast</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="weird-fact-card">
+                        <h4>👘 Gion District</h4>
+                        <div class="weird-fact-content">
+                            <p><strong>Geisha's Secret World</strong></p>
+                            <ul class="weird-fact-list">
+                                <li>👘 Maiko training takes 5-6 years</li>
+                                <li>💄 Makeup has nightingale droppings!</li>
+                                <li>📸 Don't chase geishas for photos</li>
+                                <li>👀 Best spotting: 6-7 PM</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facts Tab -->
+        <div id="quiz" class="tab-content">
+            <h2>🎯 Test Your Japan Knowledge!</h2>
+            
+            <div class="quiz-intro" id="quizIntro">
+                <p class="quiz-description">Choose a region to test your knowledge about Japan's culture, history, and attractions!</p>
+                
+                <div class="quiz-selection">
+                    <h3>Select Quiz Topic:</h3>
+                    <div class="quiz-topics">
+                        <button class="topic-btn" data-quiz="tokyo" onclick="startQuiz('tokyo')">
+                            <span class="topic-icon">🗼</span>
+                            <span class="topic-name">Tokyo</span>
+                        </button>
+                        <button class="topic-btn" data-quiz="kyoto" onclick="startQuiz('kyoto')">
+                            <span class="topic-icon">⛩️</span>
+                            <span class="topic-name">Kyoto</span>
+                        </button>
+                        <button class="topic-btn" data-quiz="food" onclick="startQuiz('food')">
+                            <span class="topic-icon">🍜</span>
+                            <span class="topic-name">Japanese Food</span>
+                        </button>
+                        <button class="topic-btn" data-quiz="culture" onclick="startQuiz('culture')">
+                            <span class="topic-icon">🎌</span>
+                            <span class="topic-name">Culture & Traditions</span>
+                        </button>
+                        <button class="topic-btn" data-quiz="general" onclick="startQuiz('general')">
+                            <span class="topic-icon">🇯🇵</span>
+                            <span class="topic-name">General Japan</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="quiz-stats">
+                    <h3>Your Quiz Statistics</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <span class="stat-value" id="totalQuizzes">0</span>
+                            <span class="stat-name">Quizzes Taken</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="avgScore">0%</span>
+                            <span class="stat-name">Average Score</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="bestScore">0%</span>
+                            <span class="stat-name">Best Score</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="quiz-container" id="quizContainer" style="display: none;">
+                <div class="quiz-header">
+                    <h3 id="quizTitle"></h3>
+                    <div class="quiz-progress">
+                        <span id="questionNumber">Question 1</span> of <span id="totalQuestions">5</span>
+                    </div>
+                </div>
+
+                <div class="quiz-question">
+                    <p id="questionText"></p>
+                </div>
+
+                <div class="quiz-options" id="quizOptions">
+                    <!-- Options will be dynamically inserted -->
+                </div>
+
+                <div class="quiz-feedback" id="quizFeedback" style="display: none;">
+                    <p id="feedbackText"></p>
+                </div>
+
+                <div class="quiz-actions">
+                    <button id="nextQuestionBtn" class="btn-primary" style="display: none;" onclick="nextQuestion()">Next Question →</button>
+                    <button id="finishQuizBtn" class="btn-primary" style="display: none;" onclick="finishQuiz()">See Results 🎉</button>
+                </div>
+            </div>
+
+            <div class="quiz-results" id="quizResults" style="display: none;">
+                <div class="results-header">
+                    <h3>Quiz Complete! 🎉</h3>
+                    <div class="score-display">
+                        <div class="score-circle">
+                            <span class="score-percentage" id="finalScore">0%</span>
+                            <span class="score-label">Score</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-breakdown">
+                    <p id="resultsMessage"></p>
+                    <div class="results-stats">
+                        <div class="result-stat">
+                            <span class="result-icon">✅</span>
+                            <span id="correctAnswers">0</span> Correct
+                        </div>
+                        <div class="result-stat">
+                            <span class="result-icon">❌</span>
+                            <span id="incorrectAnswers">0</span> Incorrect
+                        </div>
+                    </div>
+                </div>
+
+                <div class="results-actions">
+                    <button class="btn-primary" onclick="resetQuiz()">Take Another Quiz 🔄</button>
+                    <button class="btn-secondary" onclick="showQuizIntro()">Back to Topics</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo of the Day Tab -->
+        <div id="photoftheday" class="tab-content">
+            <h2>📸 Photo of the Day</h2>
+            
+            <div class="potd-section">
+                <div class="potd-upload">
+                    <h3>Upload Today's Favorite Photo</h3>
+                    <p class="potd-description">Select your best photo from today's adventures and share why it's special!</p>
+                    
+                    <form id="potdForm">
+                        <div class="potd-input-section">
+                            <div class="form-group">
+                                <label for="potdDate">Date</label>
+                                <input type="date" id="potdDate" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="potdLocation">Location</label>
+                                <input type="text" id="potdLocation" placeholder="e.g., Shibuya Crossing, Tokyo" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Upload Photo</label>
+                                <div class="potd-upload-area" id="potdUploadArea">
+                                    <p>📷 Click to select your favorite photo</p>
+                                    <input type="file" id="potdPhotoInput" accept="image/*" hidden required>
+                                </div>
+                                <div id="potdPreview" class="potd-preview" style="display: none;">
+                                    <img id="potdPreviewImg" src="" alt="Preview">
+                                    <button type="button" class="change-photo-btn" onclick="changePotdPhoto()">Change Photo</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="potdCaption">Why is this your photo of the day?</label>
+                                <textarea id="potdCaption" rows="4" placeholder="Share what makes this photo special..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="potdTags">Tags (optional)</label>
+                                <input type="text" id="potdTags" placeholder="e.g., sunset, temple, food">
+                                <small>Separate tags with commas</small>
+                            </div>
+
+                            <button type="submit" class="btn-primary">⭐ Set as Photo of the Day</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="potd-gallery">
+                    <h3>Your Daily Favorites</h3>
+                    <div id="potdGallery" class="potd-gallery-grid">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📸</div>
+                            <p>No photos of the day yet. Upload your first favorite!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Highlights Tab -->
+        <div id="highlights" class="tab-content">
+            <h2>🎊 Your Trip Highlights</h2>
+            <p class="highlights-description">A dynamic collection of your best moments, photos, and memories from your Japan adventure!</p>
+            <div id="highlightsContent" class="highlights-container">
+                <div class="empty-state">
+                    <div class="empty-state-icon">✨</div>
+                    <p>Start capturing memories to see your trip highlights!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Facts Tab -->
+        <div id="facts" class="tab-content">
+            <h2>📚 Fascinating Japan Facts</h2>
+            <div class="facts-grid" id="factsGrid">
+                <div class="fact-card">
+                    <div class="fact-icon">🗻</div>
+                    <h3>Mount Fuji</h3>
+                    <p>Mount Fuji is Japan's highest mountain at 3,776 meters. It last erupted in 1707 and is considered one of Japan's "Three Holy Mountains."</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🚄</div>
+                    <h3>Shinkansen</h3>
+                    <p>Japan's bullet trains reach speeds of 320 km/h. The network has carried over 10 billion passengers with a perfect safety record!</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🌸</div>
+                    <h3>Cherry Blossoms</h3>
+                    <p>Hanami (cherry blossom viewing) has been celebrated for over 1,000 years. There are over 200 varieties of cherry trees in Japan!</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🍣</div>
+                    <h3>Sushi Heritage</h3>
+                    <p>Sushi was originally a way to preserve fish in fermented rice. The modern nigiri-style sushi was invented in Tokyo in the 1800s.</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">⛩️</div>
+                    <h3>Shrines & Temples</h3>
+                    <p>Japan has over 80,000 Shinto shrines and 77,000 Buddhist temples. Kyoto alone has 1,600 temples and 400 shrines!</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🎌</div>
+                    <h3>Islands</h3>
+                    <p>Japan consists of 6,852 islands! The four main islands (Honshu, Hokkaido, Kyushu, and Shikoku) make up 97% of the land area.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Did You Know Tab -->
+        <div id="didyouknow" class="tab-content">
+            <h2>💡 Did You Know?</h2>
+            <div class="trivia-section">
+                <div class="trivia-card">
+                    <span class="trivia-badge">Culture</span>
+                    <p>In Japan, it's customary to slurp your noodles loudly - it shows appreciation and enhances the flavor!</p>
+                </div>
+                <div class="trivia-card">
+                    <span class="trivia-badge">Technology</span>
+                    <p>Japan has more than 5 million vending machines - that's one for every 23 people! You can buy almost anything from them.</p>
+                </div>
+                <div class="trivia-card">
+                    <span class="trivia-badge">Nature</span>
+                    <p>Snow monkeys in Nagano are the only primates (other than humans) that enjoy bathing in hot springs!</p>
+                </div>
+                <div class="trivia-card">
+                    <span class="trivia-badge">Food</span>
+                    <p>Square watermelons are grown in Japan! They're easier to stack and store, but cost around $100-200 each.</p>
+                </div>
+                <div class="trivia-card">
+                    <span class="trivia-badge">Entertainment</span>
+                    <p>Karaoke was invented in Japan in 1971! The word comes from "kara" (empty) and "okesutora" (orchestra).</p>
+                </div>
+                <div class="trivia-card">
+                    <span class="trivia-badge">Architecture</span>
+                    <p>The Hōryū-ji temple in Nara is the world's oldest surviving wooden structure, built in 607 AD!</p>
+                </div>
+                <div class="trivia-card">
+                    <span class="trivia-badge">Transportation</span>
+                    <p>Tokyo's train system is so punctual that the average delay is just 18 seconds! They apologize for delays over 1 minute.</p>
+                </div>
+                <div class="trivia-card">
+                    <span class="trivia-badge">Tradition</span>
+                    <p>There are professional "pushers" (oshiya) hired to pack people into crowded trains during rush hour!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bloopers Reel Tab -->
+        <div id="bloopers" class="tab-content">
+            <h2>😂 Bloopers Reel</h2>
+            <div class="bloopers-section">
+                <div class="blooper-form">
+                    <h3>Share Your Funny Moments!</h3>
+                    <form id="blooperForm">
+                        <input type="text" id="blooperTitle" placeholder="Give it a funny title..." required>
+                        <textarea id="blooperText" rows="4" placeholder="What happened? Share the funny details!" required></textarea>
+                        <button type="submit" class="btn-primary">😄 Add Blooper</button>
+                    </form>
+                </div>
+                <div class="bloopers-list" id="bloopersList">
+                    <div class="blooper-card example">
+                        <h3>🙈 Lost in Translation at the Restaurant</h3>
+                        <p>Tried to order "water" but accidentally asked for "hot water" (oyu instead of mizu). Got a very confused look and a cup of steaming hot water with my sushi! 😅</p>
+                        <span class="blooper-date">Example</span>
+                    </div>
+                    <div class="blooper-card example">
+                        <h3>🚪 The Toilet Technology Mishap</h3>
+                        <p>Pressed every button on the high-tech toilet trying to flush. Ended up getting sprayed with water and playing music. Still don't know which button actually flushes! 🤦</p>
+                        <span class="blooper-date">Example</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Archive Tab -->
+        <div id="archive" class="tab-content">
+            <h2>📁 Your Holiday Archive</h2>
+            <div class="archive-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalMemories">0</div>
+                    <div class="stat-label">Memories</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPhotos">0</div>
+                    <div class="stat-label">Photos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalBloopers">0</div>
+                    <div class="stat-label">Bloopers</div>
+                </div>
+            </div>
+            <div class="archive-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="best">Best Moments</button>
+                <button class="filter-btn" data-filter="funny">Funny</button>
+                <button class="filter-btn" data-filter="food">Food</button>
+                <button class="filter-btn" data-filter="culture">Culture</button>
+                <button class="filter-btn" data-filter="adventure">Adventure</button>
+            </div>
+            <div class="archive-content" id="archiveContent"></div>
+            <div class="archive-actions">
+                <button id="exportData" class="btn-secondary">📥 Export All Data</button>
+                <button id="clearData" class="btn-danger">🗑️ Clear All Data</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
