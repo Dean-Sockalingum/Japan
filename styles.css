@@ -216,6 +216,7 @@ header h1 {
     height: 5px;
     border-radius: 5px;
     outline: none;
+    appearance: none;
     -webkit-appearance: none;
     background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
@@ -2057,6 +2058,12 @@ header h1 {
 .deployment-info {
     background: linear-gradient(135deg, #fff7f8 0%, #ffe8eb 100%);
     border-color: var(--primary-color);
+}
+
+.deployment-info h4 {
+    margin-top: 20px;
+    font-size: 1.05rem;
+    color: var(--primary-color);
 }
 
 .deployment-steps {

@@ -1212,12 +1212,20 @@
             
             <div class="share-section deployment-info">
                 <h3>🚀 Deploy Your Own</h3>
-                <p>To host this webapp for everyone to access:</p>
+                <p>Host this webapp so your entire travel crew can use it from any device.</p>
+                <h4>Netlify (recommended)</h4>
                 <ol class="deployment-steps">
-                    <li>Go to your GitHub repository Settings → Pages</li>
-                    <li>Select branch <code>copilot/create-archives-for-keepsakes</code> as source</li>
-                    <li>GitHub will provide a URL like <code>https://dean-sockalingum.github.io/Japan/</code></li>
-                    <li>Share that URL with your travel group!</li>
+                    <li>Create a free Netlify account and choose <em>Import an existing project</em>.</li>
+                    <li>Connect the repository, leave the build command empty, and set the publish directory to <code>.</code>.</li>
+                    <li>Deploy to get a live URL like <code>https://your-site-name.netlify.app</code>—share it instantly.</li>
+                    <li>Use the Netlify CLI <code>netlify deploy --prod</code> when you want quick updates from your laptop.</li>
+                </ol>
+                <h4>GitHub Pages</h4>
+                <ol class="deployment-steps">
+                    <li>Open your repository → Settings → Pages.</li>
+                    <li>Select branch <code>copilot/create-archives-for-keepsakes</code> (or <code>main</code> if merged) as the source.</li>
+                    <li>GitHub will assign a URL like <code>https://your-username.github.io/Japan/</code>.</li>
+                    <li>Pass the link to Tom, Kirsten, and anyone else joining the adventure.</li>
                 </ol>
             </div>
         </div>

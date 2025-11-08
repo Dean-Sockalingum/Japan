@@ -50,6 +50,18 @@ Learn amazing trivia about:
 4. **Plan**: Browse hotels, restaurants, and attractions
 5. **Enjoy**: All your data is saved automatically!
 
+## 🌐 Deploying to Netlify
+
+Want to make the experience available for friends and travel companions? Netlify can host the site for free in just a few minutes.
+
+1. Fork or clone this repository and push it to your own GitHub account (or connect any Git provider Netlify supports).
+2. Sign in to [Netlify](https://app.netlify.com/) and choose **Add new site → Import an existing project**.
+3. Pick your repository, leave the build command empty, and set the publish directory to `.` (the root folder).
+4. Deploy! Netlify will assign a live URL such as `https://your-site-name.netlify.app`.
+5. (Optional) Install the [Netlify CLI](https://docs.netlify.com/cli/get-started/) and run `netlify deploy --prod` locally for repeatable releases.
+
+The repository includes a `netlify.toml` file with sensible defaults (including a catch-all redirect) so deep links continue to work exactly like they do locally.
+
 ## 📱 Usage
 
 ### Capturing Memories
