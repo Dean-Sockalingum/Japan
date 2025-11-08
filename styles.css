@@ -120,10 +120,38 @@ header h1 {
 .music-player {
     position: absolute;
     top: 20px;
-    right: 20px;
+    right: 120px;
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.share-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.share-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.share-icon {
+    font-size: 1.2rem;
 }
 
 .music-toggle {
@@ -1844,4 +1872,241 @@ header h1 {
 
 .tip-link:hover {
     color: #C4001A;
+}
+
+/* Share Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.share-modal-content {
+    background: linear-gradient(135deg, #fff 0%, #fef8f8 100%);
+    margin: auto;
+    padding: 40px;
+    border: none;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease;
+    position: relative;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: var(--text-light);
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+.modal-content .close:hover {
+    color: var(--primary-color);
+    transform: rotate(90deg);
+}
+
+.share-modal-content h2 {
+    color: var(--primary-color);
+    margin: 0 0 10px 0;
+    font-size: 2rem;
+}
+
+.share-description {
+    color: var(--text-light);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+.share-section {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border: 2px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.share-section:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 5px 15px rgba(230, 0, 18, 0.1);
+}
+
+.share-section h3 {
+    color: var(--primary-color);
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+}
+
+.share-instruction {
+    color: var(--text-light);
+    margin-bottom: 15px;
+}
+
+.qr-code-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: var(--bg-light);
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+#qrCodeDisplay {
+    display: inline-block;
+}
+
+#qrCodeDisplay img {
+    width: 250px;
+    height: 250px;
+    border: 3px solid white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.share-link-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.share-url-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    background: var(--bg-light);
+    color: var(--text-dark);
+}
+
+.share-url-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.copy-feedback {
+    color: var(--accent-green);
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-height: 20px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.share-tips {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.share-tips li {
+    padding: 12px 15px;
+    background: var(--bg-light);
+    border-radius: 8px;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.share-tips li:hover {
+    background: #fff;
+    transform: translateX(5px);
+}
+
+.deployment-info {
+    background: linear-gradient(135deg, #fff7f8 0%, #ffe8eb 100%);
+    border-color: var(--primary-color);
+}
+
+.deployment-steps {
+    padding-left: 20px;
+    margin: 15px 0 0 0;
+}
+
+.deployment-steps li {
+    margin-bottom: 10px;
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+.deployment-steps code {
+    background: rgba(230, 0, 18, 0.1);
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-family: 'Courier New', monospace;
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+/* Responsive adjustments for share modal */
+@media (max-width: 768px) {
+    .share-modal-content {
+        padding: 25px;
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .share-modal-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    #qrCodeDisplay img {
+        width: 200px;
+        height: 200px;
+    }
+    
+    .share-link-container {
+        flex-direction: column;
+    }
+    
+    .share-btn {
+        right: 10px;
+        padding: 8px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .music-player {
+        right: 90px;
+    }
 }

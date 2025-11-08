@@ -1188,3 +1188,111 @@ function initializeRouteInteraction() {
     // This function can be expanded for more route interactions
     console.log('Routes initialized');
 }
+
+// Share Modal Functions
+function openShareModal() {
+    const modal = document.getElementById('shareModal');
+    modal.classList.add('active');
+    modal.style.display = 'flex';
+    
+    // Generate QR code for the current URL
+    generateShareQRCode();
+    
+    // Set the share URL
+    const shareUrl = window.location.href;
+    document.getElementById('shareUrl').value = shareUrl;
+}
+
+function closeShareModal() {
+    const modal = document.getElementById('shareModal');
+    modal.classList.remove('active');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+}
+
+function generateShareQRCode() {
+    const qrCodeDisplay = document.getElementById('qrCodeDisplay');
+    const currentUrl = window.location.href;
+    
+    // Use Google Charts API to generate QR code
+    const qrCodeUrl = `https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=${encodeURIComponent(currentUrl)}&choe=UTF-8`;
+    
+    qrCodeDisplay.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code for sharing" title="Scan to access Japan 2025 Keepsakes">`;
+}
+
+function copyShareLink() {
+    const shareUrlInput = document.getElementById('shareUrl');
+    shareUrlInput.select();
+    shareUrlInput.setSelectionRange(0, 99999); // For mobile devices
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(shareUrlInput.value).then(() => {
+        // Show success feedback
+        const feedback = document.getElementById('copyFeedback');
+        feedback.innerHTML = '✅ Link copied to clipboard!';
+        feedback.style.color = '#4CAF50';
+        
+        // Clear feedback after 3 seconds
+        setTimeout(() => {
+            feedback.innerHTML = '';
+        }, 3000);
+    }).catch(err => {
+        // Fallback for older browsers
+        try {
+            document.execCommand('copy');
+            const feedback = document.getElementById('copyFeedback');
+            feedback.innerHTML = '✅ Link copied!';
+            feedback.style.color = '#4CAF50';
+            setTimeout(() => {
+                feedback.innerHTML = '';
+            }, 3000);
+        } catch (e) {
+            const feedback = document.getElementById('copyFeedback');
+            feedback.innerHTML = '❌ Could not copy. Please copy manually.';
+            feedback.style.color = '#f44336';
+        }
+    });
+}
+
+function downloadQRCode() {
+    const qrCodeImg = document.querySelector('#qrCodeDisplay img');
+    if (!qrCodeImg) {
+        alert('QR Code not generated yet!');
+        return;
+    }
+    
+    // Create a temporary link to download the QR code
+    const link = document.createElement('a');
+    link.href = qrCodeImg.src;
+    link.download = 'Japan-2025-Keepsakes-QR-Code.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show feedback
+    const feedback = document.getElementById('copyFeedback');
+    feedback.innerHTML = '⬇️ QR Code downloaded!';
+    feedback.style.color = '#4CAF50';
+    setTimeout(() => {
+        feedback.innerHTML = '';
+    }, 3000);
+}
+
+// Close modal when clicking outside of it
+window.addEventListener('click', function(event) {
+    const modal = document.getElementById('shareModal');
+    if (event.target === modal) {
+        closeShareModal();
+    }
+});
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        const modal = document.getElementById('shareModal');
+        if (modal && modal.classList.contains('active')) {
+            closeShareModal();
+        }
+    }
+});
