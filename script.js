@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeArchive();
     initializePlaces();
     initializeRouteInteraction();
+    initializeMusic();
     loadRecentMemories();
     updateArchiveStats();
     loadBloopers();
