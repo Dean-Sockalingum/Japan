@@ -1870,6 +1870,60 @@ header h1 {
     flex-wrap: wrap;
 }
 
+.stop-detail {
+    flex-basis: 100%;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 12px 15px;
+    margin-top: 10px;
+    box-shadow: inset 0 1px 0 rgba(230, 0, 18, 0.03);
+}
+
+.stop-steps,
+.stop-highlights,
+.stop-food {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-dark);
+    display: grid;
+    gap: 6px;
+    font-size: 0.95rem;
+}
+
+.stop-steps li strong,
+.stop-highlights li strong,
+.stop-food li strong {
+    color: var(--primary-color);
+}
+
+.stop-steps li em,
+.stop-food li em {
+    font-style: italic;
+}
+
+.stop-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.qr-badge {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background: var(--bg-light);
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.qr-badge:hover {
+    border-color: var(--primary-color);
+}
+
 .stop-time {
     background: var(--primary-color);
     color: white;
