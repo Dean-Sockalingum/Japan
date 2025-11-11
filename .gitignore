@@ -1,0 +1,11 @@
+# Local Netlify folder
+.netlify
+
+# Node dependencies
+node_modules/
+
+# Misc caches
+.DS_Store
+
+# Python bytecode
+__pycache__/

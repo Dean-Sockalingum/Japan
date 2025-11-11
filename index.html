@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Japan 2025 Keepsakes 🇯🇵</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <div class="container">
@@ -18,9 +19,17 @@
                     <span class="music-icon">🎵</span>
                     <span class="music-status">Play Music</span>
                 </button>
-                <div class="music-controls" id="musicControls" style="display: none;">
+                <div class="music-controls hidden" id="musicControls">
+                    <label for="volumeControl" class="sr-only">Background music volume</label>
                     <input type="range" id="volumeControl" min="0" max="100" value="30" class="volume-slider">
                     <span class="volume-label">🔊</span>
+                </div>
+                <div class="music-upload">
+                    <button type="button" id="musicUploadBtn" class="music-upload-btn">🎼 Upload Track</button>
+                    <label for="musicUploadInput" class="sr-only">Upload background music</label>
+                    <input type="file" id="musicUploadInput" accept="audio/*" class="sr-only">
+                    <button type="button" id="musicResetBtn" class="music-reset-btn">Reset</button>
+                    <p id="musicTrackLabel" class="music-track-label" aria-live="polite">Default ambience</p>
                 </div>
             </div>
             
@@ -31,9 +40,7 @@
             </button>
             
             <!-- Hidden audio element -->
-            <audio id="bgMusic" loop>
-                <source src="https://www.bensound.com/bensound-music/bensound-japan.mp3" type="audio/mpeg">
-                <!-- Fallback to YouTube Audio Library style Japanese music -->
+            <audio id="bgMusic" loop preload="none" data-src="assets/audio/bg-melody.wav">
                 Your browser does not support the audio element.
             </audio>
         </header>
@@ -116,12 +123,12 @@
                             <span class="place-badge">💰💰💰💰</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://www.hyatt.com/park-hyatt/tokyo" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=https://www.hyatt.com/park-hyatt/tokyo" alt="QR Code">
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
                             <button class="view-map-btn">📍 View on Map</button>
-                            <a href="https://www.hyatt.com/park-hyatt/tokyo" target="_blank" class="place-link">🔗 Website</a>
+                            <a href="https://www.hyatt.com/park-hyatt/tokyo" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
                             <button class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
@@ -137,12 +144,12 @@
                             <span class="place-badge">💰💰💰💰</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://www.ritzcarlton.com/kyoto" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=https://www.ritzcarlton.com/kyoto" alt="QR Code">
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
                             <button class="view-map-btn">📍 View on Map</button>
-                            <a href="https://www.ritzcarlton.com/kyoto" target="_blank" class="place-link">🔗 Website</a>
+                            <a href="https://www.ritzcarlton.com/kyoto" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
                             <button class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
@@ -158,12 +165,12 @@
                             <span class="place-badge">💰💰</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://www.sawanoya.com" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=http://www.sawanoya.com" alt="QR Code">
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
                             <button class="view-map-btn">📍 View on Map</button>
-                            <a href="http://www.sawanoya.com" target="_blank" class="place-link">🔗 Website</a>
+                            <a href="http://www.sawanoya.com" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
                             <button class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
@@ -185,7 +192,7 @@
                             <span class="place-badge">💰💰💰💰💰</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=35.6654,139.7707" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=35.6654,139.7707" alt="QR Code">
                             <p class="qr-label">Scan for location</p>
                         </div>
                         <div class="place-actions">
@@ -206,12 +213,12 @@
                             <span class="place-badge">💰💰</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://nishikiwarai.com" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=https://nishikiwarai.com" alt="QR Code">
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
                             <button class="view-map-btn">📍 View on Map</button>
-                            <a href="https://nishikiwarai.com" target="_blank" class="place-link">🔗 Website</a>
+                            <a href="https://nishikiwarai.com" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
                             <button class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
@@ -228,12 +235,12 @@
                             <span class="place-badge">💰</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=https://ichiran.com/english" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=https://ichiran.com/english" alt="QR Code">
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
                             <button class="view-map-btn">📍 View on Map</button>
-                            <a href="https://ichiran.com/english" target="_blank" class="place-link">🔗 Website</a>
+                            <a href="https://ichiran.com/english" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
                             <button class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
@@ -254,7 +261,7 @@
                             <span class="place-badge">🆓 Free Entry</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=35.0116,135.7681" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=35.0116,135.7681" alt="QR Code">
                             <p class="qr-label">Scan for location</p>
                         </div>
                         <div class="place-actions">
@@ -274,7 +281,7 @@
                             <span class="place-badge">🆓 Free Entry</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=35.7148,139.7967" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=35.7148,139.7967" alt="QR Code">
                             <p class="qr-label">Scan for location</p>
                         </div>
                         <div class="place-actions">
@@ -294,12 +301,12 @@
                             <span class="place-badge">💰 ¥200</span>
                         </div>
                         <div class="place-qr">
-                            <img src="https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=http://hpmmuseum.jp" alt="QR Code">
+                            <img src="https://quickchart.io/chart?cht=qr&chs=150x150&chl=http://hpmmuseum.jp" alt="QR Code">
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
                             <button class="view-map-btn">📍 View on Map</button>
-                            <a href="http://hpmmuseum.jp" target="_blank" class="place-link">🔗 Website</a>
+                            <a href="http://hpmmuseum.jp" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
                             <button class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
@@ -385,7 +392,7 @@
                                 <li>
                                     <span class="stop-time">11:30</span>
                                     <span class="stop-name">Asakusa: Kaminari Gate, Sensoji Temple, Nakamise Street, Kappabashi Street</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.7148,139.7967" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.7148,139.7967" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">15:00-17:00</span>
@@ -405,24 +412,24 @@
                                     <span class="stop-time">09:30-11:30</span>
                                     <span class="stop-name">TeamLab Planets</span>
                                     <span class="booking-ref">Group ticket on phone</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6545,139.7956" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6545,139.7956" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">11:30</span>
                                     <span class="stop-name">Shibuya: Meiji Jingu Shrine, Takeshita Street, Nintendo Centre, Yoyogi Park, Hachiko Statue, Shibuya Crossing</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6595,139.7004" target="_blank" class="route-link">🗺️ Shibuya</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6595,139.7004" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Shibuya</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">17:20</span>
                                     <span class="stop-name">Shibuya Sky</span>
                                     <span class="booking-ref">Tickets on Webket</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6585,139.7032" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6585,139.7032" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">19:30</span>
                                     <span class="stop-name">Dinner at Mo-Mo Paradise Shibuya Koendori</span>
                                     <span class="booking-ref">Confirmation #7WRS6V (8 min walk from Shibuya Sky)</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6615,139.6980" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6615,139.6980" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                             </ul>
                         </div>
@@ -436,12 +443,12 @@
                                 <li>
                                     <span class="stop-time">Morning</span>
                                     <span class="stop-name">Kagurazaka: Main street and side alleys (kakurenbo yokocho), Akagi shrine, canal café or Kagurazaka Saryo, French-Japanese boutiques</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.7027,139.7395" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.7027,139.7395" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">12:30</span>
                                     <span class="stop-name">Shinjuku: Gyoen National Garden, shopping, 3D Cat, T-Rex (outside Shinjuku station east exit), Karaoke</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6938,139.7036" target="_blank" class="route-link">🗺️ Shinjuku</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6938,139.7036" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Shinjuku</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">18:50</span>
@@ -476,13 +483,13 @@
                                     <span class="stop-time">15:00</span>
                                     <span class="stop-name">Check-in ANA Crowne Plaza Hiroshima (breakfast included, lounge access)</span>
                                     <span class="booking-ref">1.5 miles from station - taxi recommended</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.3853,132.4553" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.3853,132.4553" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">Afternoon</span>
                                     <span class="stop-name">Peace Museum and gardens (open until 19:00)</span>
                                     <span class="booking-ref">5 min walk from hotel, ~3 hours suggested</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.3955,132.4534" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.3955,132.4534" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                             </ul>
                         </div>
@@ -501,7 +508,7 @@
                                 <li>
                                     <span class="stop-time">Afternoon</span>
                                     <span class="stop-name">Miyajima Island: Ropeway up Mount Misen, Daisho-in Temple, Floating torii gate (high tide 14:27), 5 story pagoda, Omotesando shopping street</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.2957,132.3197" target="_blank" class="route-link">🗺️ Miyajima</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.2957,132.3197" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Miyajima</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">Evening</span>
@@ -534,7 +541,7 @@
                                 <li>
                                     <span class="stop-time">12:30-14:00</span>
                                     <span class="stop-name">Free shuttle to Onishiya Suishoen hotel (check-in 14:00)</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6264,134.8086" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.6264,134.8086" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">16:00-22:00</span>
@@ -567,18 +574,18 @@
                                 <li>
                                     <span class="stop-time">Afternoon</span>
                                     <span class="stop-name">Walk through torii gates of Fushimi Inari Taisha to Yotsutsuji viewpoint (45 mins up)</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0116,135.7681" target="_blank" class="route-link">🗺️ Fushimi Inari</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0116,135.7681" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Fushimi Inari</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">16:00-17:30</span>
                                     <span class="stop-name">Return to Kyoto station, subway on Karasuma Line to Shijo station, 5-10 min walk to Hotel GOCO Stay Kyoto Shijo Kawaramachi</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0021,135.7687" target="_blank" class="route-link">🗺️ Hotel</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0021,135.7687" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Hotel</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">18:00-21:00</span>
                                     <span class="stop-name">Evening stroll and dinner: Nishiki market, Pontocho Alley, Gion Shirakawa, walk along Kamo river</span>
                                     <span class="booking-ref">Dinner to be booked</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0054,135.7689" target="_blank" class="route-link">🗺️ Nishiki Market</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0054,135.7689" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Nishiki Market</a>
                                 </li>
                             </ul>
                         </div>
@@ -593,12 +600,12 @@
                                     <span class="stop-time">Morning/Afternoon</span>
                                     <span class="stop-name">Arashiyama Bamboo Grove and Okochi Sanso Garden</span>
                                     <span class="booking-ref">Arabica Arashiyama for coffee or Pizza Lugara for lunch, Maybe Otagi Nenbutsu-ji</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0170,135.6722" target="_blank" class="route-link">🗺️ Arashiyama</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.0170,135.6722" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Arashiyama</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">15:00</span>
                                     <span class="stop-name">Train/taxi to Kiyomizu-Gojo area: Kiyomizu-dera temple, Sannenzaka and Ninenzaka streets, Yasaka Pagoda, wander to Gion</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.9949,135.7851" target="_blank" class="route-link">🗺️ Kiyomizu-dera</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=34.9949,135.7851" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Kiyomizu-dera</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">19:00</span>
@@ -617,7 +624,7 @@
                                 <li>
                                     <span class="stop-time">10:00</span>
                                     <span class="stop-name">Meet guide at east gate for Lakeshore Cycling in Northern Lake Biwa</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.3128,136.2709" target="_blank" class="route-link">🗺️ Maibara Station</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=35.3128,136.2709" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Maibara Station</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">15:18</span>
@@ -650,7 +657,7 @@
                                 <li>
                                     <span class="stop-time">15:00</span>
                                     <span class="stop-name">Check-in Hotel Kanazawa Zoushi (breakfast included)</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.5619,136.6564" target="_blank" class="route-link">🗺️ Directions</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.5619,136.6564" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Directions</a>
                                 </li>
                             </ul>
                         </div>
@@ -661,12 +668,12 @@
                                     <span class="stop-time">09:30</span>
                                     <span class="stop-name">Taxi to Kenrokuen Tea Ceremony Experience, then tour Kenrokuen Gardens</span>
                                     <span class="booking-ref">Tickets purchased, need to pay entrance fee to gardens</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.5619,136.6626" target="_blank" class="route-link">🗺️ Kenrokuen</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.5619,136.6626" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Kenrokuen</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">12:00</span>
                                     <span class="stop-name">Lunch in 21st Century Museum café and tour of museum</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.5608,136.6583" target="_blank" class="route-link">🗺️ Museum</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.5608,136.6583" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Museum</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">14:30-17:00</span>
@@ -685,7 +692,7 @@
                                 <li>
                                     <span class="stop-time">10:00-13:00</span>
                                     <span class="stop-name">Omicho Market, browse souvenirs, light lunch near station</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.5664,136.6559" target="_blank" class="route-link">🗺️ Omicho Market</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.5664,136.6559" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Omicho Market</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">13:00-14:25</span>
@@ -695,7 +702,7 @@
                                 <li>
                                     <span class="stop-time">14:25-15:45</span>
                                     <span class="stop-name">Explore Shirakawa-go UNESCO World Heritage village</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.2578,136.9060" target="_blank" class="route-link">🗺️ Shirakawa-go</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.2578,136.9060" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Shirakawa-go</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">15:45-16:35</span>
@@ -705,7 +712,7 @@
                                 <li>
                                     <span class="stop-time">Evening</span>
                                     <span class="stop-name">Check-in Mercure Hida Takayama, dinner at Heianraku</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.1456,137.2530" target="_blank" class="route-link">🗺️ Takayama</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.1456,137.2530" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Takayama</a>
                                 </li>
                             </ul>
                         </div>
@@ -725,7 +732,7 @@
                                 <li>
                                     <span class="stop-time">09:00-11:00</span>
                                     <span class="stop-name">Stroll Takayama: Miyagawa market, Old town, Takayama-Jinya (Edo-period government building)</span>
-                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.1456,137.2530" target="_blank" class="route-link">🗺️ Old Town</a>
+                                    <a href="https://www.google.com/maps/dir/?api=1&destination=36.1456,137.2530" target="_blank" rel="noopener noreferrer" class="route-link">🗺️ Old Town</a>
                                 </li>
                                 <li>
                                     <span class="stop-time">12:35-15:04</span>
@@ -756,12 +763,12 @@
                 <div class="tip-card">
                     <h4>🚄 JR Pass</h4>
                     <p>Consider getting a 7 or 14-day JR Pass if traveling between cities. Covers Shinkansen and most JR trains.</p>
-                    <a href="https://www.jrpass.com" target="_blank" class="tip-link">Learn More →</a>
+                    <a href="https://www.jrpass.com" target="_blank" rel="noopener noreferrer" class="tip-link">Learn More →</a>
                 </div>
                 <div class="tip-card">
                     <h4>🎴 IC Cards (Suica/Pasmo)</h4>
                     <p>Essential for easy travel on trains, buses, and even convenience store purchases.</p>
-                    <a href="https://www.jreast.co.jp/e/pass/suica.html" target="_blank" class="tip-link">Get Suica →</a>
+                    <a href="https://www.jreast.co.jp/e/pass/suica.html" target="_blank" rel="noopener noreferrer" class="tip-link">Get Suica →</a>
                 </div>
                 <div class="tip-card">
                     <h4>📱 Google Maps</h4>
@@ -906,7 +913,7 @@
                 </div>
             </div>
 
-            <div class="quiz-container" id="quizContainer" style="display: none;">
+            <div class="quiz-container hidden" id="quizContainer">
                 <div class="quiz-header">
                     <h3 id="quizTitle"></h3>
                     <div class="quiz-progress">
@@ -922,17 +929,17 @@
                     <!-- Options will be dynamically inserted -->
                 </div>
 
-                <div class="quiz-feedback" id="quizFeedback" style="display: none;">
+                <div class="quiz-feedback hidden" id="quizFeedback">
                     <p id="feedbackText"></p>
                 </div>
 
                 <div class="quiz-actions">
-                    <button id="nextQuestionBtn" class="btn-primary" style="display: none;" onclick="nextQuestion()">Next Question →</button>
-                    <button id="finishQuizBtn" class="btn-primary" style="display: none;" onclick="finishQuiz()">See Results 🎉</button>
+                    <button id="nextQuestionBtn" class="btn-primary hidden" onclick="nextQuestion()">Next Question →</button>
+                    <button id="finishQuizBtn" class="btn-primary hidden" onclick="finishQuiz()">See Results 🎉</button>
                 </div>
             </div>
 
-            <div class="quiz-results" id="quizResults" style="display: none;">
+            <div class="quiz-results hidden" id="quizResults">
                 <div class="results-header">
                     <h3>Quiz Complete! 🎉</h3>
                     <div class="score-display">
@@ -991,7 +998,7 @@
                                     <p>📷 Click to select your favorite photo</p>
                                     <input type="file" id="potdPhotoInput" accept="image/*" hidden required>
                                 </div>
-                                <div id="potdPreview" class="potd-preview" style="display: none;">
+                                <div id="potdPreview" class="potd-preview hidden">
                                     <img id="potdPreviewImg" src="" alt="Preview">
                                     <button type="button" class="change-photo-btn" onclick="changePotdPhoto()">Change Photo</button>
                                 </div>
@@ -1193,6 +1200,7 @@
                 <h3>🌐 Share Link</h3>
                 <p class="share-instruction">Copy and share this link:</p>
                 <div class="share-link-container">
+                    <label for="shareUrl" class="sr-only">Shareable link</label>
                     <input type="text" id="shareUrl" readonly class="share-url-input">
                     <button class="btn-primary" onclick="copyShareLink()">📋 Copy Link</button>
                 </div>

@@ -8,6 +8,10 @@ const STORAGE_KEYS = {
     potd: 'japan_photo_of_day'
 };
 
+const DEFAULT_MUSIC_SRC = 'assets/audio/bg-melody.wav';
+const DEFAULT_TRACK_LABEL = 'Default ambience';
+const SHARE_QR_SIZE = 250;
+
 // Tab Navigation
 function initializeTabs() {
     const tabBtns = document.querySelectorAll('.tab-btn');
@@ -80,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializePlaces();
     initializeRouteInteraction();
     initializeMusic();
+    setupMusicUpload();
     loadRecentMemories();
     updateArchiveStats();
     loadBloopers();
@@ -517,10 +522,56 @@ function formatDate(dateString) {
     });
 }
 
-// Generate QR Code (simple text-based for demo)
-function generateQRCode(text) {
-    // Using Google Charts API for QR code generation
-    return `https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=${encodeURIComponent(text)}`;
+// ===== QR HELPERS =====
+function preloadImage(url) {
+    return new Promise((resolve, reject) => {
+        const testImg = new Image();
+        testImg.onload = () => resolve(url);
+        testImg.onerror = reject;
+        testImg.src = url;
+    });
+}
+
+// Generate QR Code via Netlify Function with multiple fallbacks
+async function generateQRCode(text) {
+    const encoded = encodeURIComponent(text);
+    const qrFallbacks = [
+        `https://quickchart.io/chart?cht=qr&chs=${SHARE_QR_SIZE}x${SHARE_QR_SIZE}&chl=${encoded}`,
+        `https://api.qrserver.com/v1/create-qr-code/?size=${SHARE_QR_SIZE}x${SHARE_QR_SIZE}&data=${encoded}`,
+        `https://chart.googleapis.com/chart?chs=${SHARE_QR_SIZE}x${SHARE_QR_SIZE}&cht=qr&chl=${encoded}`
+    ];
+
+    try {
+        const response = await fetch('/.netlify/functions/generate-qr', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ url: text })
+        });
+
+        if (!response.ok) {
+            throw new Error(`Function response ${response.status}`);
+        }
+
+        const data = await response.json();
+        if (!data.qr || typeof data.qr !== 'string') {
+            throw new Error('Invalid QR payload');
+        }
+
+        return data.qr;
+    } catch (error) {
+        console.warn('Local QR generation failed, trying remote fallbacks.', error);
+
+        for (const fallbackUrl of qrFallbacks) {
+            try {
+                await preloadImage(fallbackUrl);
+                return fallbackUrl;
+            } catch (loadError) {
+                console.warn('QR fallback failed to load:', fallbackUrl, loadError);
+            }
+        }
+
+        throw new Error('All QR code generation attempts failed.');
+    }
 }
 
 // Make functions globally available
@@ -531,6 +582,85 @@ window.deletePlace = deletePlace;
 
 // ===== MUSIC PLAYER =====
 let musicPlaying = false;
+let musicLoaded = false;
+let musicLoadingPromise = null;
+let musicObjectUrl = '';
+
+function loadBackgroundMusic() {
+    const bgMusic = document.getElementById('bgMusic');
+    if (!bgMusic) {
+        return Promise.reject(new Error('Background music element missing'));
+    }
+
+    if (!bgMusic.dataset.src) {
+        bgMusic.dataset.src = DEFAULT_MUSIC_SRC;
+    }
+
+    if (bgMusic.dataset.userTrack === 'true') {
+        if (!musicLoaded && musicObjectUrl) {
+            bgMusic.src = musicObjectUrl;
+            bgMusic.load();
+            musicLoaded = true;
+        }
+        return Promise.resolve();
+    }
+
+    if (musicLoaded) {
+        if (musicObjectUrl) {
+            bgMusic.src = musicObjectUrl;
+        }
+        return Promise.resolve();
+    }
+
+    if (musicLoadingPromise) {
+        return musicLoadingPromise;
+    }
+
+    const sourceUrl = bgMusic.dataset.src || DEFAULT_MUSIC_SRC;
+    if (!sourceUrl) {
+        return Promise.reject(new Error('Background music source missing'));
+    }
+
+    // Call load within the gesture handler to keep playback whitelisted
+    bgMusic.load();
+
+    musicLoadingPromise = fetch(sourceUrl, { mode: 'cors' })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Music fetch failed with status ${response.status}`);
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            if (musicObjectUrl) {
+                URL.revokeObjectURL(musicObjectUrl);
+            }
+            musicObjectUrl = URL.createObjectURL(blob);
+            bgMusic.src = musicObjectUrl;
+            bgMusic.load();
+            musicLoaded = true;
+        })
+        .catch(error => {
+            musicLoadingPromise = null;
+            console.warn('Music fetch failed, falling back to direct source.', error);
+            try {
+                bgMusic.src = sourceUrl;
+                bgMusic.load();
+                musicLoaded = true;
+            } catch (fallbackError) {
+                throw fallbackError;
+            }
+        });
+
+    return musicLoadingPromise;
+}
+
+function revokeMusicObjectUrl() {
+    if (musicObjectUrl) {
+        URL.revokeObjectURL(musicObjectUrl);
+        musicObjectUrl = '';
+    }
+}
 
 function initializeMusic() {
     const bgMusic = document.getElementById('bgMusic');
@@ -538,6 +668,7 @@ function initializeMusic() {
     
     // Set initial volume (30%)
     if (bgMusic) {
+        bgMusic.preload = 'none';
         bgMusic.volume = 0.3;
         
         if (volumeControl) {
@@ -545,6 +676,132 @@ function initializeMusic() {
                 bgMusic.volume = e.target.value / 100;
             });
         }
+    }
+}
+
+function setupMusicUpload() {
+    const uploadBtn = document.getElementById('musicUploadBtn');
+    const uploadInput = document.getElementById('musicUploadInput');
+    const resetBtn = document.getElementById('musicResetBtn');
+
+    if (uploadBtn && uploadInput) {
+        uploadBtn.addEventListener('click', () => uploadInput.click());
+    }
+
+    if (uploadInput) {
+        uploadInput.addEventListener('change', handleMusicUpload);
+    }
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', resetMusicTrack);
+    }
+
+    updateMusicTrackLabel(DEFAULT_TRACK_LABEL);
+}
+
+function handleMusicUpload(event) {
+    const uploadInput = event.target;
+    const file = uploadInput.files && uploadInput.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (file.type && !file.type.startsWith('audio/')) {
+        alert('Please choose an audio file.');
+        uploadInput.value = '';
+        return;
+    }
+
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicControls = document.getElementById('musicControls');
+
+    if (!bgMusic) {
+        return;
+    }
+
+    if (musicObjectUrl) {
+        URL.revokeObjectURL(musicObjectUrl);
+        musicObjectUrl = '';
+    }
+
+    bgMusic.pause();
+    musicPlaying = false;
+    musicLoaded = true;
+    musicLoadingPromise = null;
+
+    musicObjectUrl = URL.createObjectURL(file);
+    bgMusic.src = musicObjectUrl;
+    bgMusic.dataset.userTrack = 'true';
+    bgMusic.load();
+
+    if (musicToggle) {
+        musicToggle.classList.remove('playing');
+        musicToggle.classList.remove('loading');
+        const musicStatus = musicToggle.querySelector('.music-status');
+        if (musicStatus) {
+            musicStatus.textContent = 'Play Music';
+        }
+    }
+
+    if (musicControls) {
+        musicControls.style.display = 'none';
+    }
+
+    updateMusicTrackLabel(file.name);
+    uploadInput.value = '';
+}
+
+function resetMusicTrack() {
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const musicControls = document.getElementById('musicControls');
+    const uploadInput = document.getElementById('musicUploadInput');
+
+    if (!bgMusic) {
+        return;
+    }
+
+    bgMusic.pause();
+    musicPlaying = false;
+
+    if (musicObjectUrl) {
+        URL.revokeObjectURL(musicObjectUrl);
+        musicObjectUrl = '';
+    }
+
+    delete bgMusic.dataset.userTrack;
+    bgMusic.removeAttribute('src');
+    bgMusic.dataset.src = DEFAULT_MUSIC_SRC;
+    bgMusic.load();
+
+    musicLoaded = false;
+    musicLoadingPromise = null;
+
+    if (musicToggle) {
+        musicToggle.classList.remove('playing');
+        const musicStatus = musicToggle.querySelector('.music-status');
+        if (musicStatus) {
+            musicStatus.textContent = 'Play Music';
+        }
+    }
+
+    if (musicControls) {
+        musicControls.style.display = 'none';
+    }
+
+    if (uploadInput) {
+        uploadInput.value = '';
+    }
+
+    updateMusicTrackLabel(DEFAULT_TRACK_LABEL);
+}
+
+function updateMusicTrackLabel(labelText) {
+    const labelEl = document.getElementById('musicTrackLabel');
+    if (labelEl) {
+        labelEl.textContent = labelText || DEFAULT_TRACK_LABEL;
     }
 }
 
@@ -560,21 +817,70 @@ function toggleMusic() {
         bgMusic.pause();
         musicToggle.classList.remove('playing');
         musicStatus.textContent = 'Play Music';
-        musicControls.style.display = 'none';
-        musicPlaying = false;
+        if (musicControls) {
+            musicControls.style.display = 'none';
+        }
+    musicPlaying = false;
     } else {
-        bgMusic.play().catch(e => {
-            console.log('Audio playback failed:', e);
-            alert('Unable to play music. Please check your browser settings.');
-        });
-        musicToggle.classList.add('playing');
-        musicStatus.textContent = 'Pause Music';
-        musicControls.style.display = 'flex';
-        musicPlaying = true;
+        musicToggle.disabled = true;
+        musicToggle.classList.add('loading');
+        musicStatus.textContent = 'Loading Music…';
+
+        loadBackgroundMusic()
+            .then(() => {
+                const playAttempt = bgMusic.play();
+                return playAttempt && typeof playAttempt.then === 'function'
+                    ? playAttempt
+                    : Promise.resolve();
+            })
+            .then(() => {
+                musicToggle.classList.add('playing');
+                musicStatus.textContent = 'Pause Music';
+                if (musicControls) {
+                    musicControls.style.display = 'flex';
+                }
+                musicPlaying = true;
+            })
+            .catch(error => {
+                if (error && error.name === 'AbortError') {
+                    console.warn('Music playback was interrupted before it could start.', error);
+                    const isPlaying = !bgMusic.paused;
+                    musicPlaying = isPlaying;
+                    if (isPlaying) {
+                        musicToggle.classList.add('playing');
+                        musicStatus.textContent = 'Pause Music';
+                        if (musicControls) {
+                            musicControls.style.display = 'flex';
+                        }
+                    } else {
+                        musicToggle.classList.remove('playing');
+                        musicStatus.textContent = 'Play Music';
+                        if (musicControls) {
+                            musicControls.style.display = 'none';
+                        }
+                    }
+                    return;
+                }
+
+                console.error('Audio playback failed:', error);
+                musicStatus.textContent = 'Play Music';
+                musicToggle.classList.remove('playing');
+                if (musicControls) {
+                    musicControls.style.display = 'none';
+                }
+                musicPlaying = false;
+                alert('Unable to play music. Please check your connection or browser settings.');
+            })
+            .finally(() => {
+                musicToggle.disabled = false;
+                musicToggle.classList.remove('loading');
+            });
     }
 }
 
 window.toggleMusic = toggleMusic;
+
+window.addEventListener('beforeunload', revokeMusicObjectUrl);
 
 // ===== QUIZ SYSTEM =====
 const quizData = {
@@ -1212,14 +1518,38 @@ function closeShareModal() {
     }, 300);
 }
 
-function generateShareQRCode() {
+async function generateShareQRCode() {
     const qrCodeDisplay = document.getElementById('qrCodeDisplay');
     const currentUrl = window.location.href;
-    
-    // Use Google Charts API to generate QR code
-    const qrCodeUrl = `https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=${encodeURIComponent(currentUrl)}&choe=UTF-8`;
-    
-    qrCodeDisplay.innerHTML = `<img src="${qrCodeUrl}" alt="QR Code for sharing" title="Scan to access Japan 2025 Keepsakes">`;
+
+    if (!qrCodeDisplay) {
+        return;
+    }
+
+    qrCodeDisplay.innerHTML = '<p class="qr-loading">Generating QR code…</p>';
+
+    try {
+        const qrCodeUrl = await generateQRCode(currentUrl);
+        const qrImg = document.createElement('img');
+        qrImg.alt = 'QR Code for sharing';
+        qrImg.title = 'Scan to access Japan 2025 Keepsakes';
+        qrImg.width = SHARE_QR_SIZE;
+        qrImg.height = SHARE_QR_SIZE;
+
+        qrImg.onerror = () => {
+            qrCodeDisplay.innerHTML = '<p class="qr-error">Unable to load QR code image. Please check your connection.</p>';
+        };
+
+        qrImg.onload = () => {
+            qrCodeDisplay.innerHTML = '';
+            qrCodeDisplay.appendChild(qrImg);
+        };
+
+        qrImg.src = qrCodeUrl;
+    } catch (error) {
+        console.error('Unable to create QR code:', error);
+        qrCodeDisplay.innerHTML = '<p class="qr-error">Unable to create QR code. Please try again later.</p>';
+    }
 }
 
 function copyShareLink() {
