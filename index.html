@@ -12,10 +12,10 @@
         <header>
             <h1>🗾 Japan 2025 Holiday Memories</h1>
             <p class="tagline">Capture your unforgettable moments in the Land of the Rising Sun</p>
-            
+
             <!-- Background Music Player -->
             <div class="music-player">
-                <button id="musicToggle" class="music-toggle" onclick="toggleMusic()">
+                <button type="button" id="musicToggle" class="music-toggle" onclick="toggleMusic()">
                     <span class="music-icon">🎵</span>
                     <span class="music-status">Play Music</span>
                 </button>
@@ -32,13 +32,13 @@
                     <p id="musicTrackLabel" class="music-track-label" aria-live="polite">Default ambience</p>
                 </div>
             </div>
-            
+
             <!-- Share Button -->
-            <button class="share-btn" onclick="openShareModal()">
+            <button type="button" class="share-btn" onclick="openShareModal()">
                 <span class="share-icon">🔗</span>
                 <span>Share</span>
             </button>
-            
+
             <!-- Hidden audio element -->
             <audio id="bgMusic" loop preload="none" data-src="assets/audio/bg-melody.wav">
                 Your browser does not support the audio element.
@@ -46,16 +46,16 @@
         </header>
 
         <nav class="tab-navigation">
-            <button class="tab-btn active" data-tab="memories">✨ Memories</button>
-            <button class="tab-btn" data-tab="travel">🗺️ Travel Guide</button>
-            <button class="tab-btn" data-tab="routes">🚶 Routes</button>
-            <button class="tab-btn" data-tab="quiz">🎯 Quiz</button>
-            <button class="tab-btn" data-tab="photoftheday">📸 Photo of the Day</button>
-            <button class="tab-btn" data-tab="highlights">🎊 Highlights</button>
-            <button class="tab-btn" data-tab="facts">📚 Facts</button>
-            <button class="tab-btn" data-tab="didyouknow">💡 Did You Know</button>
-            <button class="tab-btn" data-tab="bloopers">😂 Bloopers Reel</button>
-            <button class="tab-btn" data-tab="archive">📁 Archive</button>
+            <button type="button" class="tab-btn active" data-tab="memories">✨ Memories</button>
+            <button type="button" class="tab-btn" data-tab="travel">🗺️ Travel Guide</button>
+            <button type="button" class="tab-btn" data-tab="routes">🚶 Routes</button>
+            <button type="button" class="tab-btn" data-tab="quiz">🎯 Quiz</button>
+            <button type="button" class="tab-btn" data-tab="photoftheday">📸 Photo of the Day</button>
+            <button type="button" class="tab-btn" data-tab="highlights">🎊 Highlights</button>
+            <button type="button" class="tab-btn" data-tab="facts">📚 Facts</button>
+            <button type="button" class="tab-btn" data-tab="didyouknow">💡 Did You Know</button>
+            <button type="button" class="tab-btn" data-tab="bloopers">😂 Bloopers Reel</button>
+            <button type="button" class="tab-btn" data-tab="archive">📁 Archive</button>
         </nav>
 
         <!-- Memories Tab -->
@@ -63,7 +63,7 @@
             <div class="upload-section">
                 <h2>📸 Upload Your Photos</h2>
                 <div class="upload-area" id="uploadArea">
-                    <p>🖼️ Drag & drop photos here or click to browse</p>
+                    <p>🖼️ Drag &amp; drop photos here or click to browse</p>
                     <input type="file" id="photoInput" accept="image/*" multiple hidden>
                 </div>
                 <div id="photoGallery" class="photo-gallery"></div>
@@ -108,7 +108,7 @@
         <!-- Travel Guide Tab -->
         <div id="travel" class="tab-content">
             <h2>🗺️ Your Japan Travel Companion</h2>
-            
+
             <div class="travel-section">
                 <h3>🏨 Recommended Hotels</h3>
                 <div class="places-grid">
@@ -127,9 +127,9 @@
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
                             <a href="https://www.hyatt.com/park-hyatt/tokyo" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
 
@@ -148,9 +148,9 @@
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
                             <a href="https://www.ritzcarlton.com/kyoto" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
 
@@ -169,9 +169,9 @@
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
                             <a href="http://www.sawanoya.com" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
                 </div>
@@ -196,8 +196,8 @@
                             <p class="qr-label">Scan for location</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
 
@@ -217,9 +217,9 @@
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
                             <a href="https://nishikiwarai.com" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
 
@@ -239,9 +239,9 @@
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
                             <a href="https://ichiran.com/english" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
                 </div>
@@ -265,8 +265,8 @@
                             <p class="qr-label">Scan for location</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
 
@@ -285,8 +285,8 @@
                             <p class="qr-label">Scan for location</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
 
@@ -305,9 +305,9 @@
                             <p class="qr-label">Scan for details</p>
                         </div>
                         <div class="place-actions">
-                            <button class="view-map-btn">📍 View on Map</button>
+                            <button type="button" class="view-map-btn">📍 View on Map</button>
                             <a href="http://hpmmuseum.jp" target="_blank" rel="noopener noreferrer" class="place-link">🔗 Website</a>
-                            <button class="save-place-btn">💾 Save</button>
+                            <button type="button" class="save-place-btn">💾 Save</button>
                         </div>
                     </div>
                 </div>
@@ -328,7 +328,7 @@
         <div id="routes" class="tab-content">
             <h2>🗺️ Your Japan 2025 Itinerary</h2>
             <p class="itinerary-overview">Complete 17-day journey through Japan from November 5-21, 2025</p>
-            
+
             <div class="routes-section">
                 <!-- Travel Days Nov 5-7 -->
                 <div class="route-card">
@@ -407,7 +407,7 @@
                     </div>
                     <div class="route-content">
                         <div class="route-day">
-                            <h4>Nov 7 (Fri) - Arrival & Check-in</h4>
+                            <h4>Nov 7 (Fri) - Arrival &amp; Check-in</h4>
                             <ul class="route-stops">
                                 <li>
                                     <span class="stop-time">After landing</span>
@@ -428,7 +428,7 @@
                             </ul>
                         </div>
                         <div class="route-day">
-                            <h4>Nov 8 (Sat) - Asakusa & Sumo Experience</h4>
+                            <h4>Nov 8 (Sat) - Asakusa &amp; Sumo Experience</h4>
                             <ul class="route-stops">
                                 <li>
                                     <span class="stop-time">10:30</span>
@@ -470,7 +470,7 @@
                             </ul>
                         </div>
                         <div class="route-day">
-                            <h4>Nov 9 (Sun) - TeamLab & Shibuya</h4>
+                            <h4>Nov 9 (Sun) - TeamLab &amp; Shibuya</h4>
                             <ul class="route-stops">
                                 <li>
                                     <span class="stop-time">08:30</span>
@@ -495,7 +495,7 @@
                                         <ul class="stop-highlights">
                                             <li><strong>Arrive 15 mins early:</strong> Wear shorts or roll-up trousers for knee-deep water exhibits.</li>
                                             <li><strong>Locker prep:</strong> Free lockers available; bring minimal items.</li>
-                                            <li><strong>Photo tips:</strong> Best shots in Floating Flower Garden & Infinity Crystal World.</li>
+                                            <li><strong>Photo tips:</strong> Best shots in Floating Flower Garden &amp; Infinity Crystal World.</li>
                                             <li><strong>Foot towel:</strong> Provided at exit—keep for the day.</li>
                                         </ul>
                                         <div class="stop-links">
@@ -557,7 +557,7 @@
                             </ul>
                         </div>
                         <div class="route-day">
-                            <h4>Nov 10 (Mon) - Kagurazaka & Shinjuku</h4>
+                            <h4>Nov 10 (Mon) - Kagurazaka &amp; Shinjuku</h4>
                             <ul class="route-stops">
                                 <li>
                                     <span class="stop-time">09:00</span>
@@ -643,10 +643,10 @@
                     </div>
                 </div>
 
-                <!-- Hiroshima & Miyajima Nov 11-13 -->
+                <!-- Hiroshima &amp; Miyajima Nov 11-13 -->
                 <div class="route-card">
                     <div class="route-header">
-                        <h3>🕊️ Hiroshima & Miyajima</h3>
+                        <h3>🕊️ Hiroshima &amp; Miyajima</h3>
                         <span class="route-duration">Nov 11-13</span>
                     </div>
                     <div class="route-content">
@@ -733,7 +733,7 @@
                                     <span class="stop-name">Miyajima highlights (high tide 14:27)</span>
                                     <div class="stop-detail">
                                         <ul class="stop-highlights">
-                                            <li><strong>Itsukushima Shrine & floating torii:</strong> time visit for high tide to see the gate afloat.</li>
+                                            <li><strong>Itsukushima Shrine &amp; floating torii:</strong> time visit for high tide to see the gate afloat.</li>
                                             <li><strong>Mount Misen Ropeway:</strong> Ride from Momijidani Park for panoramic Seto Inland Sea views.</li>
                                             <li><strong>Daisho-in Temple:</strong> Explore the 500 arhats statues and serene hillside complex.</li>
                                             <li><strong>Omotesando Shopping Street:</strong> Pick up momiji manju and local crafts.</li>
@@ -749,7 +749,7 @@
                                     <span class="stop-name">Taste Miyajima specialities</span>
                                     <div class="stop-detail">
                                         <ul class="stop-food">
-                                            <li><strong>Kakiya:</strong> Charcoal-grilled oysters & oyster rice (reserve if possible).</li>
+                                            <li><strong>Kakiya:</strong> Charcoal-grilled oysters &amp; oyster rice (reserve if possible).</li>
                                             <li><strong>Ueno:</strong> Famous <em>anago-meshi</em> eel bowls beside Miyajimaguchi Station; grab on return.</li>
                                             <li><strong>Momiji manju stalls:</strong> Try custard or matcha-filled maple cakes along Omotesando.</li>
                                         </ul>
@@ -939,7 +939,7 @@
                             </ul>
                         </div>
                         <div class="route-day">
-                            <h4>Nov 15 (Sat) - Arashiyama & Kiyomizu</h4>
+                            <h4>Nov 15 (Sat) - Arashiyama &amp; Kiyomizu</h4>
                             <ul class="route-stops">
                                 <li>
                                     <span class="stop-time">07:00-14:30</span>
@@ -1079,7 +1079,7 @@
                 <!-- Kanazawa Nov 17-19 -->
                 <div class="route-card">
                     <div class="route-header">
-                        <h3>🏯 Kanazawa & Beyond</h3>
+                        <h3>🏯 Kanazawa &amp; Beyond</h3>
                         <span class="route-duration">Nov 17-19</span>
                     </div>
                     <div class="route-content">
@@ -1120,7 +1120,7 @@
                             </ul>
                         </div>
                         <div class="route-day">
-                            <h4>Nov 18 (Tue) - Kenrokuen & Museums</h4>
+                            <h4>Nov 18 (Tue) - Kenrokuen &amp; Museums</h4>
                             <ul class="route-stops">
                                 <li>
                                     <span class="stop-time">09:30</span>
@@ -1188,7 +1188,7 @@
                             </ul>
                         </div>
                         <div class="route-day">
-                            <h4>Nov 19 (Wed) - Shirakawa-go & Takayama</h4>
+                            <h4>Nov 19 (Wed) - Shirakawa-go &amp; Takayama</h4>
                             <ul class="route-stops">
                                 <li>
                                     <span class="stop-time">10:00-13:00</span>
@@ -1275,10 +1275,10 @@
                     </div>
                 </div>
 
-                <!-- Takayama & Return Nov 20-21 -->
+                <!-- Takayama &amp; Return Nov 20-21 -->
                 <div class="route-card">
                     <div class="route-header">
-                        <h3>🏘️ Takayama & Journey Home</h3>
+                        <h3>🏘️ Takayama &amp; Journey Home</h3>
                         <span class="route-duration">Nov 20-21</span>
                     </div>
                     <div class="route-content">
@@ -1378,8 +1378,8 @@
             </div>
 
             <div class="weird-facts-section">
-                <h3>🤯 Weird & Interesting Facts About These Locations</h3>
-                
+                <h3>🤯 Weird &amp; Interesting Facts About These Locations</h3>
+
                 <div class="weird-facts-grid">
                     <div class="weird-fact-card">
                         <h4>🚶 Shibuya Crossing</h4>
@@ -1465,30 +1465,30 @@
         <!-- Facts Tab -->
         <div id="quiz" class="tab-content">
             <h2>🎯 Test Your Japan Knowledge!</h2>
-            
+
             <div class="quiz-intro" id="quizIntro">
                 <p class="quiz-description">Choose a region to test your knowledge about Japan's culture, history, and attractions!</p>
-                
+
                 <div class="quiz-selection">
                     <h3>Select Quiz Topic:</h3>
                     <div class="quiz-topics">
-                        <button class="topic-btn" data-quiz="tokyo" onclick="startQuiz('tokyo')">
+                        <button type="button" class="topic-btn" data-quiz="tokyo" onclick="startQuiz('tokyo')">
                             <span class="topic-icon">🗼</span>
                             <span class="topic-name">Tokyo</span>
                         </button>
-                        <button class="topic-btn" data-quiz="kyoto" onclick="startQuiz('kyoto')">
+                        <button type="button" class="topic-btn" data-quiz="kyoto" onclick="startQuiz('kyoto')">
                             <span class="topic-icon">⛩️</span>
                             <span class="topic-name">Kyoto</span>
                         </button>
-                        <button class="topic-btn" data-quiz="food" onclick="startQuiz('food')">
+                        <button type="button" class="topic-btn" data-quiz="food" onclick="startQuiz('food')">
                             <span class="topic-icon">🍜</span>
                             <span class="topic-name">Japanese Food</span>
                         </button>
-                        <button class="topic-btn" data-quiz="culture" onclick="startQuiz('culture')">
+                        <button type="button" class="topic-btn" data-quiz="culture" onclick="startQuiz('culture')">
                             <span class="topic-icon">🎌</span>
-                            <span class="topic-name">Culture & Traditions</span>
+                            <span class="topic-name">Culture &amp; Traditions</span>
                         </button>
-                        <button class="topic-btn" data-quiz="general" onclick="startQuiz('general')">
+                        <button type="button" class="topic-btn" data-quiz="general" onclick="startQuiz('general')">
                             <span class="topic-icon">🇯🇵</span>
                             <span class="topic-name">General Japan</span>
                         </button>
@@ -1516,7 +1516,7 @@
 
             <div class="quiz-container hidden" id="quizContainer">
                 <div class="quiz-header">
-                    <h3 id="quizTitle"></h3>
+                    <h3 id="quizTitle">Choose a quiz to get started</h3>
                     <div class="quiz-progress">
                         <span id="questionNumber">Question 1</span> of <span id="totalQuestions">5</span>
                     </div>
@@ -1535,8 +1535,8 @@
                 </div>
 
                 <div class="quiz-actions">
-                    <button id="nextQuestionBtn" class="btn-primary hidden" onclick="nextQuestion()">Next Question →</button>
-                    <button id="finishQuizBtn" class="btn-primary hidden" onclick="finishQuiz()">See Results 🎉</button>
+                    <button type="button" id="nextQuestionBtn" class="btn-primary hidden" onclick="nextQuestion()">Next Question →</button>
+                    <button type="button" id="finishQuizBtn" class="btn-primary hidden" onclick="finishQuiz()">See Results 🎉</button>
                 </div>
             </div>
 
@@ -1566,8 +1566,8 @@
                 </div>
 
                 <div class="results-actions">
-                    <button class="btn-primary" onclick="resetQuiz()">Take Another Quiz 🔄</button>
-                    <button class="btn-secondary" onclick="showQuizIntro()">Back to Topics</button>
+                    <button type="button" class="btn-primary" onclick="resetQuiz()">Take Another Quiz 🔄</button>
+                    <button type="button" class="btn-secondary" onclick="showQuizIntro()">Back to Topics</button>
                 </div>
             </div>
         </div>
@@ -1575,12 +1575,12 @@
         <!-- Photo of the Day Tab -->
         <div id="photoftheday" class="tab-content">
             <h2>📸 Photo of the Day</h2>
-            
+
             <div class="potd-section">
                 <div class="potd-upload">
                     <h3>Upload Today's Favorite Photo</h3>
                     <p class="potd-description">Select your best photo from today's adventures and share why it's special!</p>
-                    
+
                     <form id="potdForm">
                         <div class="potd-input-section">
                             <div class="form-group">
@@ -1600,7 +1600,7 @@
                                     <input type="file" id="potdPhotoInput" accept="image/*" hidden required>
                                 </div>
                                 <div id="potdPreview" class="potd-preview hidden">
-                                    <img id="potdPreviewImg" src="" alt="Preview">
+                                    <img id="potdPreviewImg" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Preview">
                                     <button type="button" class="change-photo-btn" onclick="changePotdPhoto()">Change Photo</button>
                                 </div>
                             </div>
@@ -1671,7 +1671,7 @@
                 </div>
                 <div class="fact-card">
                     <div class="fact-icon">⛩️</div>
-                    <h3>Shrines & Temples</h3>
+                    <h3>Shrines &amp; Temples</h3>
                     <p>Japan has over 80,000 Shinto shrines and 77,000 Buddhist temples. Kyoto alone has 1,600 temples and 400 shrines!</p>
                 </div>
                 <div class="fact-card">
@@ -1766,17 +1766,17 @@
                 </div>
             </div>
             <div class="archive-filters">
-                <button class="filter-btn active" data-filter="all">All</button>
-                <button class="filter-btn" data-filter="best">Best Moments</button>
-                <button class="filter-btn" data-filter="funny">Funny</button>
-                <button class="filter-btn" data-filter="food">Food</button>
-                <button class="filter-btn" data-filter="culture">Culture</button>
-                <button class="filter-btn" data-filter="adventure">Adventure</button>
+                <button type="button" class="filter-btn active" data-filter="all">All</button>
+                <button type="button" class="filter-btn" data-filter="best">Best Moments</button>
+                <button type="button" class="filter-btn" data-filter="funny">Funny</button>
+                <button type="button" class="filter-btn" data-filter="food">Food</button>
+                <button type="button" class="filter-btn" data-filter="culture">Culture</button>
+                <button type="button" class="filter-btn" data-filter="adventure">Adventure</button>
             </div>
             <div class="archive-content" id="archiveContent"></div>
             <div class="archive-actions">
-                <button id="exportData" class="btn-secondary">📥 Export All Data</button>
-                <button id="clearData" class="btn-danger">🗑️ Clear All Data</button>
+                <button type="button" id="exportData" class="btn-secondary">📥 Export All Data</button>
+                <button type="button" id="clearData" class="btn-danger">🗑️ Clear All Data</button>
             </div>
         </div>
     </div>
@@ -1787,27 +1787,27 @@
             <span class="close" onclick="closeShareModal()">&times;</span>
             <h2>🔗 Share This Webapp</h2>
             <p class="share-description">Share this Japan 2025 Keepsakes webapp with your fellow travelers!</p>
-            
+
             <div class="share-section">
                 <h3>📱 QR Code</h3>
                 <p class="share-instruction">Scan this QR code with your phone to access the webapp:</p>
                 <div class="qr-code-container">
                     <div id="qrCodeDisplay"></div>
                 </div>
-                <button class="btn-secondary" onclick="downloadQRCode()">⬇️ Download QR Code</button>
+                <button type="button" class="btn-secondary" onclick="downloadQRCode()">⬇️ Download QR Code</button>
             </div>
-            
+
             <div class="share-section">
                 <h3>🌐 Share Link</h3>
                 <p class="share-instruction">Copy and share this link:</p>
                 <div class="share-link-container">
                     <label for="shareUrl" class="sr-only">Shareable link</label>
                     <input type="text" id="shareUrl" readonly class="share-url-input">
-                    <button class="btn-primary" onclick="copyShareLink()">📋 Copy Link</button>
+                    <button type="button" class="btn-primary" onclick="copyShareLink()">📋 Copy Link</button>
                 </div>
                 <div id="copyFeedback" class="copy-feedback"></div>
             </div>
-            
+
             <div class="share-section">
                 <h3>💡 Sharing Tips</h3>
                 <ul class="share-tips">
@@ -1818,7 +1818,7 @@
                     <li>☁️ Each person's memories are saved locally - use "Export Data" to share them</li>
                 </ul>
             </div>
-            
+
             <div class="share-section deployment-info">
                 <h3>🚀 Deploy Your Own</h3>
                 <p>Host this webapp so your entire travel crew can use it from any device.</p>
