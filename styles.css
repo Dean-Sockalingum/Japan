@@ -46,6 +46,22 @@ body::before {
     transition: background-image 0.5s ease, opacity 0.5s ease;
 }
 
+.hidden {
+    display: none;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* Background themes for different sections */
 body.bg-fuji::before {
     background-image: url('https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=1920&q=80');
@@ -122,7 +138,8 @@ header h1 {
     top: 20px;
     right: 120px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-end;
     gap: 10px;
 }
 
@@ -142,6 +159,7 @@ header h1 {
     font-size: 0.95rem;
     font-weight: 600;
     transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
 
@@ -167,12 +185,18 @@ header h1 {
     font-size: 0.95rem;
     font-weight: 600;
     transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 }
 
 .music-toggle:hover {
     background: rgba(255, 255, 255, 0.3);
     transform: scale(1.05);
+}
+
+.music-toggle.loading {
+    cursor: progress;
+    opacity: 0.7;
 }
 
 .music-toggle.playing {
@@ -208,7 +232,47 @@ header h1 {
     background: rgba(255, 255, 255, 0.2);
     padding: 8px 15px;
     border-radius: 25px;
+    -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
+}
+
+.music-upload {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+.music-upload-btn,
+.music-reset-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+.music-upload-btn:hover,
+.music-reset-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.music-reset-btn {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.music-track-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.85);
+    text-align: right;
 }
 
 .volume-slider {
@@ -216,8 +280,8 @@ header h1 {
     height: 5px;
     border-radius: 5px;
     outline: none;
-    appearance: none;
     -webkit-appearance: none;
+    appearance: none;
     background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
 }
@@ -832,6 +896,10 @@ header h1 {
         top: auto;
         right: auto;
         margin-top: 15px;
+        align-items: center;
+    }
+
+    .music-upload {
         justify-content: center;
     }
 
@@ -1802,6 +1870,60 @@ header h1 {
     flex-wrap: wrap;
 }
 
+.stop-detail {
+    flex-basis: 100%;
+    background: white;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 12px 15px;
+    margin-top: 10px;
+    box-shadow: inset 0 1px 0 rgba(230, 0, 18, 0.03);
+}
+
+.stop-steps,
+.stop-highlights,
+.stop-food {
+    margin: 0;
+    padding-left: 18px;
+    color: var(--text-dark);
+    display: grid;
+    gap: 6px;
+    font-size: 0.95rem;
+}
+
+.stop-steps li strong,
+.stop-highlights li strong,
+.stop-food li strong {
+    color: var(--primary-color);
+}
+
+.stop-steps li em,
+.stop-food li em {
+    font-style: italic;
+}
+
+.stop-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.qr-badge {
+    width: 120px;
+    height: 120px;
+    border-radius: 10px;
+    background: var(--bg-light);
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+.qr-badge:hover {
+    border-color: var(--primary-color);
+}
+
 .stop-time {
     background: var(--primary-color);
     color: white;
@@ -1886,6 +2008,7 @@ header h1 {
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.7);
+    -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     animation: fadeIn 0.3s ease;
 }
@@ -1992,7 +2115,13 @@ header h1 {
 }
 
 #qrCodeDisplay {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    padding: 20px;
+    min-height: 280px;
 }
 
 #qrCodeDisplay img {
@@ -2001,6 +2130,17 @@ header h1 {
     border: 3px solid white;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.qr-loading,
+.qr-error {
+    font-size: 1rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.qr-error {
+    color: var(--danger-color);
 }
 
 .share-link-container {
@@ -2114,6 +2254,6 @@ header h1 {
     }
     
     .music-player {
-        right: 90px;
+        right: auto;
     }
 }

@@ -1,0 +1,9 @@
+{
+  "name": "japan-keepsakes",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "dependencies": {
+    "qrcode": "^1.5.3"
+  }
+}
