@@ -1,4 +1,11 @@
-const { createClient } = require('@supabase/supabase-js');
+let supabaseModulePromise = null;
+
+async function loadSupabaseModule() {
+  if (!supabaseModulePromise) {
+    supabaseModulePromise = import('@supabase/supabase-js');
+  }
+  return supabaseModulePromise;
+}
 
 const {
   SUPABASE_URL,
@@ -105,6 +112,7 @@ exports.handler = async event => {
   const objectPath = `${normalizedFolder}/${hash}.${extension}`;
 
   try {
+    const { createClient } = await loadSupabaseModule();
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
 
     const { error: uploadError } = await supabase.storage
