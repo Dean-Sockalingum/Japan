@@ -125,7 +125,12 @@ exports.handler = async event => {
       return {
         statusCode: 502,
         headers: JSON_HEADERS,
-        body: JSON.stringify({ message: 'Failed to upload image to Supabase Storage.' })
+        body: JSON.stringify({
+          message: 'Failed to upload image to Supabase Storage.',
+          details: uploadError?.message ?? null,
+          status: uploadError?.status ?? null,
+          name: uploadError?.name ?? null
+        })
       };
     }
 
