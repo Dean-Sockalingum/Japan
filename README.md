@@ -12,18 +12,21 @@ This comprehensive web application serves as your personal travel companion and 
 ## ✨ Key Features
 
 ### 📸 Memory Capture
+
 - Upload photos with drag & drop
 - Write detailed memory entries
 - Categorize by type (Best, Funny, Food, Culture, Adventure)
 - All data saved locally in your browser
 
 ### 🗺️ Travel Companion
+
 - **Hotels**: Curated recommendations with QR codes
 - **Restaurants**: Must-try dining experiences
 - **Attractions**: Top tourist destinations
 - **Routes**: Pre-planned 1-3 day itineraries with Google Maps integration
 
 ### 🎯 Interactive Features
+
 - **Quizzes**: Test your Japan knowledge (Tokyo, Kyoto, Food, Culture)
 - **Photo of the Day**: Showcase your best daily shot
 - **Highlights**: Auto-generated trip summary
@@ -31,12 +34,15 @@ This comprehensive web application serves as your personal travel companion and 
 - **Weird Facts**: Fascinating trivia about each location
 
 ### 🎵 Ambiance
+
 - Optional background music player
 - Traditional Japanese music
 - Volume controls
 
 ### 🤯 Weird & Interesting Facts
+
 Learn amazing trivia about:
+
 - Shibuya Crossing (3,000 people at once!)
 - Fushimi Inari (10,000+ torii gates)
 - Mount Fuji (visible only 80 days/year)
@@ -65,18 +71,21 @@ The repository includes a `netlify.toml` file with sensible defaults (including 
 ## 📱 Usage
 
 ### Capturing Memories
+
 1. Navigate to the **Memories** tab
 2. Upload photos by clicking or dragging
 3. Fill in the memory form with title, type, description, and date
 4. Click "Save Memory"
 
 ### Planning Your Trip
+
 1. Visit the **Travel Guide** tab for hotels and restaurants
 2. Check the **Routes** tab for detailed itineraries
 3. Read weird facts to prepare for each location
 4. Save your favorite places
 
 ### Testing Knowledge
+
 1. Go to the **Quiz** tab
 2. Select a topic (Tokyo, Kyoto, Food, etc.)
 3. Answer 5 questions
@@ -84,6 +93,7 @@ The repository includes a `netlify.toml` file with sensible defaults (including 
 5. Track your scores
 
 ### Daily Highlights
+
 1. Use **Photo of the Day** to upload your best shot
 2. Add memories throughout the day
 3. Check **Highlights** to see your auto-generated trip summary
@@ -115,19 +125,47 @@ The repository includes a `netlify.toml` file with sensible defaults (including 
 - **Google Charts API** - QR code generation
 - **Google Maps** - Route directions
 - **Responsive Design** - Works on mobile and desktop
+- **Netlify Functions + Supabase** *(optional)* - Off-browser photo backups
+
+## ☁️ Cloud Photo Backup (Supabase)
+
+Add long-term storage for your photos without changing the on-page workflow.
+
+1. Create a Supabase project (free tier works fine) and enable Storage.
+2. Create a bucket (e.g. `photos`) and make it **public** so you can view uploads without signing in.
+3. In Netlify, open **Site settings → Environment variables** and add:
+   - `SUPABASE_URL` – Project API URL from Supabase settings.
+   - `SUPABASE_SERVICE_ROLE_KEY` – Service role key (store securely; Netlify hides it).
+   - `SUPABASE_BUCKET` *(optional)* – Bucket name (defaults to `photos`).
+   - `SUPABASE_FOLDER` *(optional)* – Folder inside the bucket (defaults to `uploads`).
+   - `SUPABASE_MAX_UPLOAD_BYTES` *(optional)* – Max image size in bytes (defaults to 5 MB).
+4. Redeploy the site. Each new upload now syncs to Supabase through the Netlify function at `/.netlify/functions/upload-photo`.
+
+When cloud sync is active, every photo card shows a status pill:
+
+- **Cloud syncing...** while the upload is in progress.
+- **Cloud upload queued** if waiting its turn.
+- **Cloud synced** once Supabase returns the permanent URL (click **View** to open).
+- **Warning: ...** if an upload fails; press **Retry** to try again.
+
+Uploads still remain in local storage so the experience stays offline-friendly. The Supabase copy simply gives you a durable backup.
 
 ## 📸 Screenshots
 
 ### Main Memory Page
+
 Capture your experiences with photos and detailed descriptions.
 
 ### Travel Guide
+
 Discover recommended hotels, restaurants, and attractions with QR codes.
 
 ### Route Planning with Facts
+
 Detailed itineraries with weird and interesting facts about each location.
 
 ### Interactive Quiz
+
 Test your knowledge about Japan with fun quizzes.
 
 ## 🌟 Highlights
@@ -140,13 +178,18 @@ Test your knowledge about Japan with fun quizzes.
 
 ## 📦 File Structure
 
-```
+```text
 Japan/
-├── index.html          # Main HTML structure
-├── styles.css          # Complete styling
-├── script.js          # All JavaScript functionality
-├── README.md          # This file
-└── FEATURES.md        # Detailed feature documentation
+├── index.html                # Main HTML structure
+├── styles.css                # Complete styling
+├── script.js                # Core browser logic (obfuscated build)
+├── supabase-upload.js        # Cloud backup helper (runs after script.js)
+├── netlify/
+│   └── functions/
+│       ├── generate-qr.js    # Existing QR generator function
+│       └── upload-photo.js   # Supabase uploader (new)
+├── README.md                # This file
+└── FEATURES.md              # Detailed feature documentation
 ```
 
 ## 🎯 Use Cases
@@ -167,6 +210,7 @@ Japan/
 ## 🌐 Browser Support
 
 Works on all modern browsers:
+
 - Chrome/Edge (recommended)
 - Firefox
 - Safari

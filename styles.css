@@ -432,6 +432,67 @@ header h1 {
     display: block;
 }
 
+.photo-item .cloud-sync-status {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #fff;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    line-height: 1;
+    pointer-events: auto;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+}
+
+.cloud-sync-status__link,
+.cloud-sync-status__retry {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 0.75rem;
+    cursor: pointer;
+}
+
+.cloud-sync-status__link {
+    text-decoration: underline;
+    padding: 0;
+}
+
+.cloud-sync-status__retry {
+    text-decoration: none;
+    padding: 2px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.cloud-sync-status__retry:hover,
+.cloud-sync-status__retry:focus {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.cloud-sync-status[data-status='success'] {
+    background: rgba(39, 174, 96, 0.9);
+}
+
+.cloud-sync-status[data-status='error'] {
+    background: rgba(192, 57, 43, 0.9);
+}
+
+.cloud-sync-status[data-status='uploading'] {
+    background: rgba(41, 128, 185, 0.9);
+}
+
+.cloud-sync-status[data-status='queued'],
+.cloud-sync-status[data-status='pending'] {
+    background: rgba(17, 43, 60, 0.9);
+}
+
 .photo-delete {
     position: absolute;
     top: 10px;
