@@ -5,7 +5,7 @@ const MIGRATION_VERSION_FLAG = 'cloudStorageShim:v1';
 const MAX_INIT_RETRIES = 10;
 const PENDING_PROTOCOL = 'cloud-pending://';
 
-const originalSetItem = localStorage.getItem('japan_photos').lengthlocalStorage.setItem.bind(localStorage);
+const originalSetItem = localStorage.setItem.bind(localStorage);
 const originalGetItem = localStorage.getItem.bind(localStorage);
 const originalRemoveItem = localStorage.removeItem.bind(localStorage);
 
