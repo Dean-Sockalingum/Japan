@@ -7,13 +7,11 @@ async function loadSupabaseModule() {
   return supabaseModulePromise;
 }
 
-const {
-  SUPABASE_URL,
-  SUPABASE_SERVICE_ROLE_KEY,
-  SUPABASE_BUCKET = 'photos',
-  SUPABASE_FOLDER = 'uploads',
-  SUPABASE_MAX_UPLOAD_BYTES
-} = process.env;
+const SUPABASE_URL = process.env.SUPABASE_URL;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_BUCKET = process.env.SUPABASE_BUCKET || 'photos';
+const SUPABASE_FOLDER = process.env.SUPABASE_FOLDER || 'uploads';
+const SUPABASE_MAX_UPLOAD_BYTES = process.env.SUPABASE_MAX_UPLOAD_BYTES;
 
 const MAX_UPLOAD_BYTES = Number.isFinite(Number(SUPABASE_MAX_UPLOAD_BYTES))
   ? Number(SUPABASE_MAX_UPLOAD_BYTES)
