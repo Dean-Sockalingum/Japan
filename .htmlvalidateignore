@@ -1,5 +1,5 @@
-node_modules/
-**/coverage/
-.netlify/
-dist/
-build/
+node_modules/**
+**/coverage/**
+.netlify/**
+dist/**
+build/**

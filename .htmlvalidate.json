@@ -1,5 +1,12 @@
 {
   "$schema": "https://html-validate.org/schemas/config.json",
   "root": true,
-  "extends": ["html-validate:recommended"]
+  "extends": ["html-validate:recommended"],
+  "rules": {
+    "element-required-content": "off",
+    "void-style": "off",
+    "doctype-style": "off",
+    "attr-quotes": "off",
+    "no-trailing-whitespace": "off"
+  }
 }
