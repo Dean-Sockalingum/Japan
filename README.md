@@ -135,11 +135,14 @@ Add long-term storage for your photos without changing the on-page workflow.
 2. Create a bucket (e.g. `photos`) and make it **public** so you can view uploads without signing in.
 3. In Netlify, open **Site settings → Environment variables** and add:
    - `SUPABASE_URL` – Project API URL from Supabase settings.
-   - `SUPABASE_SERVICE_ROLE_KEY` – Service role key (store securely; Netlify hides it).
+   - `SUPABASE_SECRET_KEY` – Preferred: the new Supabase secret key (format `sb_secret_...`).
+   - `SUPABASE_SERVICE_ROLE_KEY` – Legacy JWT key; keep this only while you finish migrating. The function automatically prefers `SUPABASE_SECRET_KEY` when present and falls back to this variable for older projects.
    - `SUPABASE_BUCKET` *(optional)* – Bucket name (defaults to `photos`).
    - `SUPABASE_FOLDER` *(optional)* – Folder inside the bucket (defaults to `uploads`).
    - `SUPABASE_MAX_UPLOAD_BYTES` *(optional)* – Max image size in bytes (defaults to 5 MB).
 4. Redeploy the site. Each new upload now syncs to Supabase through the Netlify function at `/.netlify/functions/upload-photo`.
+
+> 🆕 **Supabase API key migration:** Supabase is rolling out publishable/secret keys to replace the older anon/service_role JWTs. Start generating `sb_secret_...` keys now so you can rotate without downtime before legacy keys disappear in late 2026. This project already supports the new key—just drop it into `SUPABASE_SECRET_KEY`.
 
 When cloud sync is active, every photo card shows a status pill:
 
