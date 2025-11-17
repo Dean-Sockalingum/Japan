@@ -68,6 +68,29 @@ Want to make the experience available for friends and travel companions? Netlify
 
 The repository includes a `netlify.toml` file with sensible defaults (including a catch-all redirect) so deep links continue to work exactly like they do locally.
 
+### HTML Validation
+
+The project uses `netlify-plugin-html-validate` to ensure HTML quality before deployment. The plugin automatically runs during Netlify builds and validates all HTML files against the rules defined in `.htmlvalidate.json`.
+
+**To validate HTML locally before deploying:**
+
+```bash
+npm install
+npm run lint:html
+```
+
+The validation checks for:
+- Proper DOCTYPE declaration (must be uppercase: `<!DOCTYPE html>`)
+- Required `<title>` element in `<head>`
+- Correctly formatted meta and link tags
+- Other HTML best practices
+
+If validation fails during deployment, check the build logs for specific errors and fix them before redeploying.
+
+### CI/CD Pipeline
+
+A GitHub Actions workflow (`.github/workflows/ci.yml`) automatically validates HTML on every push and pull request to the `main` branch. This ensures code quality is maintained throughout development.
+
 ## 📱 Usage
 
 ### Capturing Memories
@@ -260,6 +283,63 @@ Works on all modern browsers:
 - Firefox
 - Safari
 - Opera
+
+## 🔧 Troubleshooting
+
+### HTML Validation Errors
+
+If you encounter HTML validation errors during deployment:
+
+1. **Check the error message** in Netlify build logs for specific issues
+2. **Run validation locally**:
+   ```bash
+   npm install
+   npm run lint:html
+   ```
+3. **Common issues and fixes**:
+   - **Missing `<title>` tag**: Ensure your HTML has a `<title>` element inside the `<head>` section
+   - **DOCTYPE formatting**: Use uppercase `<!DOCTYPE html>` at the start of your HTML file
+   - **Self-closing tags**: Properly format meta and link tags (e.g., `<meta charset="UTF-8">` not `<meta charset="UTF-8" />`)
+   - **Element nesting**: Verify all HTML elements are properly nested and closed
+
+4. **Validation rules** are configured in `.htmlvalidate.json` and can be adjusted if needed
+
+### Deployment Issues
+
+If deployment fails:
+
+1. **Check build logs** in Netlify dashboard for detailed error messages
+2. **Verify environment variables** are correctly set (especially for Supabase integration)
+3. **Test locally first**:
+   ```bash
+   netlify dev
+   ```
+4. **Clear cache and redeploy** if issues persist
+
+### Local Development
+
+To run the project locally:
+
+1. **Simple HTTP Server**:
+   ```bash
+   npx http-server -p 8080
+   ```
+   Then open `http://localhost:8080` in your browser
+
+2. **With Netlify Dev** (for testing functions):
+   ```bash
+   npm install -g netlify-cli
+   netlify dev
+   ```
+
+### Data Issues
+
+If memories or data aren't saving:
+
+1. **Check browser console** for JavaScript errors
+2. **Verify localStorage** is enabled in your browser
+3. **Clear browser cache** if data appears corrupted
+4. **Export data regularly** as a backup using the Archive feature
 
 ## 📝 License
 
