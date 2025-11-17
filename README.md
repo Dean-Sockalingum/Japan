@@ -153,7 +153,48 @@ When cloud sync is active, every photo card shows a status pill:
 
 Uploads still remain in local storage so the experience stays offline-friendly. The Supabase copy simply gives you a durable backup.
 
-## 📸 Screenshots
+### 📊 Cloud Sync Status Panel
+
+- A new "Cloud backup" panel now sits directly under the Memories photo uploader.
+- It surfaces total uploads, pending queue length, last sync time, recent error (if any), and rolling average latency so you can spot stalls immediately.
+- The panel is accessible (ARIA live region) and reacts in real time thanks to `cloud-sync.js`, which instruments calls to `/.netlify/functions/upload-photo` and caches state in `localStorage` for quick reloads.
+- Badge states:
+   - **Idle** – No uploads yet.
+   - **Syncing** – One or more uploads currently in-flight.
+   - **Backed up** – Latest Supabase call succeeded.
+   - **Needs attention** – The last attempt failed; hover to read the error and press "Retry" on the photo card.
+
+### �️ Troubleshooting Supabase Uploads
+
+1. **Confirm Netlify env vars** – In Site settings → Environment variables ensure `SUPABASE_URL` matches your project URL and `SUPABASE_SECRET_KEY` contains the full secret (either the new `sb_secret_...` string or the legacy service-role JWT). Paste without spaces or quotes.
+2. **Look for helpful errors** – The Netlify function now refuses to execute when the key is malformed and returns:
+
+    ```json
+    {
+       "message": "Supabase service role key is malformed. Please copy the entire key from the Supabase dashboard without spaces.",
+       "hint": "Service role keys are long JWT strings with two dots (\".\")."
+    }
+    ```
+
+    If you see `Invalid Compact JWS` in the response body, the stored key is truncated or corrupted—rotate it from Supabase → Settings → API.
+3. **Run a curl smoke test** – Before trying from the UI, hit the function directly (replace `your-site` with the deployed domain and adjust the hash string to any hex digest you like):
+
+    ```bash
+    curl -sS https://your-site.netlify.app/.netlify/functions/upload-photo \ 
+       -H "Content-Type: application/json" \ 
+       -d '{
+          "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...", 
+          "hash": "0123456789abcdef0123456789abcdef", 
+          "metadata": {"source": "curl-test"}
+       }'
+    ```
+
+    A healthy upload returns HTTP 200 with a JSON payload containing `url`, `path`, and `storedAt`. Any `4xx/5xx` body will include `message`, `details`, and `status` to speed up debugging.
+4. **Check Supabase Storage** – Open the Storage browser and verify files appear under the configured bucket/folder. Remember to set the bucket to **public** or create a signed URL policy if you want to keep it private.
+
+If you're still blocked, rotate both the secret key and bucket service role, redeploy on Netlify, and retry the curl command. Nine times out of ten this clears lingering JWT issues.
+
+## �📸 Screenshots
 
 ### Main Memory Page
 
@@ -185,7 +226,8 @@ Test your knowledge about Japan with fun quizzes.
 Japan/
 ├── index.html                # Main HTML structure
 ├── styles.css                # Complete styling
-├── script.js                # Core browser logic (obfuscated build)
+├── script.js                 # Core browser logic (obfuscated build)
+├── cloud-sync.js             # Cloud backup status + fetch instrumentation
 ├── supabase-upload.js        # Cloud backup helper (runs after script.js)
 ├── netlify/
 │   └── functions/

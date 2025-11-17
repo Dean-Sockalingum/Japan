@@ -67,6 +67,41 @@
                     <input type="file" id="photoInput" accept="image/*" multiple hidden>
                 </div>
                 <div id="photoGallery" class="photo-gallery"></div>
+                <section class="cloud-sync-panel" aria-live="polite">
+                    <div class="cloud-sync-header">
+                        <div class="cloud-sync-title">
+                            <span class="cloud-sync-icon" aria-hidden="true">☁️</span>
+                            <div>
+                                <p class="cloud-sync-label">Cloud backup</p>
+                                <p id="cloudSyncSubtitle" class="cloud-sync-subtitle">Waiting for first upload</p>
+                            </div>
+                        </div>
+                        <span id="cloudSyncBadge" class="cloud-sync-badge" role="status">Idle</span>
+                    </div>
+                    <dl class="cloud-sync-stats">
+                        <div class="cloud-sync-stat">
+                            <dt>Total photos</dt>
+                            <dd id="cloudPhotoCount">0</dd>
+                        </div>
+                        <div class="cloud-sync-stat">
+                            <dt>Pending uploads</dt>
+                            <dd id="cloudPendingCount">0</dd>
+                        </div>
+                        <div class="cloud-sync-stat">
+                            <dt>Last sync</dt>
+                            <dd id="cloudLastSync">Not yet synced</dd>
+                        </div>
+                        <div class="cloud-sync-stat">
+                            <dt>Last error</dt>
+                            <dd id="cloudLastError">None 🎉</dd>
+                        </div>
+                        <div class="cloud-sync-stat">
+                            <dt>Avg. upload time</dt>
+                            <dd id="cloudLatencyStat">—</dd>
+                        </div>
+                    </dl>
+                    <p class="cloud-sync-footnote">Supabase uploads are validated before saving so you can trust every cloud copy.</p>
+                </section>
             </div>
 
             <div class="memory-section">
@@ -1842,6 +1877,7 @@
 
     <script defer src="cloud-storage-shim.js"></script>
     <script defer src="script.js"></script>
+    <script defer src="cloud-sync.js"></script>
     <script defer src="supabase-upload.js"></script>
 </body>
 </html>

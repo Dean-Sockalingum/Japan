@@ -41,6 +41,18 @@ exports.handler = async event => {
     };
   }
 
+  if (!isLikelyJwt(SUPABASE_SECRET_KEY)) {
+    console.warn('Supabase secret key appears to be malformed.');
+    return {
+      statusCode: 500,
+      headers: JSON_HEADERS,
+      body: JSON.stringify({
+        message: 'Supabase service role key is malformed. Please copy the entire key from the Supabase dashboard without spaces.',
+        hint: 'Service role keys are long JWT strings with two dots (".").'
+      })
+    };
+  }
+
   let payload;
   try {
     payload = JSON.parse(event.body || '{}');
@@ -191,4 +203,17 @@ function getExtensionFromMimeType(mimeType) {
   }
 
   return 'bin';
+}
+
+function isLikelyJwt(value) {
+  if (typeof value !== 'string') {
+    return false;
+  }
+
+  const parts = value.split('.');
+  if (parts.length !== 3) {
+    return false;
+  }
+
+  return parts.every(segment => /^[A-Za-z0-9_-]+$/.test(segment));
 }
