@@ -8,6 +8,7 @@
     "qrcode": "^1.5.3"
   },
   "devDependencies": {
-    "netlify-cli": "^23.11.0"
+    "netlify-cli": "^23.11.0",
+    "netlify-plugin-html-validate": "^1.1.1"
   }
 }
