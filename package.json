@@ -3,11 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "license": "MIT",
+  "scripts": {
+    "lint:html": "html-validate *.html"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.81.1",
     "qrcode": "^1.5.3"
   },
   "devDependencies": {
+    "html-validate": "^8.24.1",
     "netlify-cli": "^23.11.0",
     "netlify-plugin-html-validate": "^1.1.1"
   }
