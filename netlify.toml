@@ -8,10 +8,11 @@
   external_node_modules = ["@supabase/supabase-js"]
 
 [[plugins]]
-  package = "netlify-plugin-html-validate"
+  package = "netlify-plugin-html-validate@1.1.1"
   [plugins.inputs]
     config = ".htmlvalidate.json"
     path = "index.html"
+    ext = "html"
 
 [[redirects]]
   from = "/*"
