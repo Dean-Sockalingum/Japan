@@ -7,13 +7,16 @@ async function loadSupabaseModule() {
   return supabaseModulePromise;
 }
 
-const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-const SUPABASE_BUCKET = process.env.SUPABASE_BUCKET || 'photos';
-const SUPABASE_FOLDER = process.env.SUPABASE_FOLDER || 'uploads';
-const SUPABASE_MAX_UPLOAD_BYTES = process.env.SUPABASE_MAX_UPLOAD_BYTES;
+const SUPABASE_URL = (process.env.SUPABASE_URL || '').trim();
+const SUPABASE_SECRET_KEY = (process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
+const SUPABASE_BUCKET = (process.env.SUPABASE_BUCKET || 'photos').trim();
+const SUPABASE_FOLDER = (process.env.SUPABASE_FOLDER || 'uploads').trim();
+const SUPABASE_MAX_UPLOAD_BYTES_RAW = process.env.SUPABASE_MAX_UPLOAD_BYTES;
+const SUPABASE_MAX_UPLOAD_BYTES = SUPABASE_MAX_UPLOAD_BYTES_RAW && SUPABASE_MAX_UPLOAD_BYTES_RAW.trim() !== ''
+  ? SUPABASE_MAX_UPLOAD_BYTES_RAW.trim()
+  : undefined;
 
-const MAX_UPLOAD_BYTES = Number.isFinite(Number(SUPABASE_MAX_UPLOAD_BYTES))
+const MAX_UPLOAD_BYTES = SUPABASE_MAX_UPLOAD_BYTES !== undefined && Number.isFinite(Number(SUPABASE_MAX_UPLOAD_BYTES))
   ? Number(SUPABASE_MAX_UPLOAD_BYTES)
   : 5 * 1024 * 1024; // 5MB default limit
 
@@ -30,7 +33,7 @@ exports.handler = async event => {
     };
   }
 
-  if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+  if (!SUPABASE_URL || !SUPABASE_SECRET_KEY) {
     return {
       statusCode: 500,
       headers: JSON_HEADERS,
@@ -110,8 +113,8 @@ exports.handler = async event => {
   const objectPath = `${normalizedFolder}/${hash}.${extension}`;
 
   try {
-    const { createClient } = await loadSupabaseModule();
-    const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+  const { createClient } = await loadSupabaseModule();
+  const supabase = createClient(SUPABASE_URL, SUPABASE_SECRET_KEY);
 
     const { error: uploadError } = await supabase.storage
       .from(SUPABASE_BUCKET)
