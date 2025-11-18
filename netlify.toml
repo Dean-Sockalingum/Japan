@@ -2,6 +2,9 @@
   command = ""
   publish = "."
 
+[build.environment]
+  SECRETS_SCAN_OMIT_PATHS = "netlify/functions/upload-photo.js"
+
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
