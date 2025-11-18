@@ -1,7 +1,7 @@
 # Japan 2025 Holiday Memories 🇯🇵
 
 An interactive and dynamic webpage to capture and save keepsakes from your 2025 Japan holiday adventure!
-
+For detailed Copilot guidance, see [.github/COPILOT_INSTRUCTIONS.md](./.github/COPILOT_INSTRUCTIONS.md)
 ![Japan Keepsakes](https://img.shields.io/badge/Japan-2025-red?style=for-the-badge&logo=japan)
 ![Status](https://img.shields.io/badge/Status-Ready-success?style=for-the-badge)
 
