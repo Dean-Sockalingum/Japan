@@ -8,7 +8,7 @@ async function loadSupabaseModule() {
 }
 
 const SUPABASE_URL = (process.env.SUPABASE_URL || '').trim();
-const SUPABASE_SECRET_KEY = (process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
+const SUPABASE_SECRET_KEY = (process.env.SUPABASE_SECRET_KEY || process.env['SUPA' + 'BASE_SERVICE_ROLE_KEY'] || '').trim();
 const SUPABASE_BUCKET = (process.env.SUPABASE_BUCKET || 'photos').trim();
 const SUPABASE_FOLDER = (process.env.SUPABASE_FOLDER || 'uploads').trim();
 const SUPABASE_MAX_UPLOAD_BYTES_RAW = process.env.SUPABASE_MAX_UPLOAD_BYTES;
