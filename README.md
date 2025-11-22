@@ -68,6 +68,29 @@ Want to make the experience available for friends and travel companions? Netlify
 
 The repository includes a `netlify.toml` file with sensible defaults (including a catch-all redirect) so deep links continue to work exactly like they do locally.
 
+### HTML Validation
+
+The project uses `netlify-plugin-html-validate` to ensure HTML quality before deployment. The plugin automatically runs during Netlify builds and validates all HTML files against the rules defined in `.htmlvalidate.json`.
+
+**To validate HTML locally before deploying:**
+
+```bash
+npm install
+npm run lint:html
+```
+
+The validation checks for:
+- Proper DOCTYPE declaration (must be uppercase: `<!DOCTYPE html>`)
+- Required `<title>` element in `<head>`
+- Correctly formatted meta and link tags
+- Other HTML best practices
+
+If validation fails during deployment, check the build logs for specific errors and fix them before redeploying.
+
+### CI/CD Pipeline
+
+A GitHub Actions workflow (`.github/workflows/ci.yml`) automatically validates HTML on every push and pull request to the `main` branch. This ensures code quality is maintained throughout development.
+
 ## 📱 Usage
 
 ### Capturing Memories
@@ -153,7 +176,48 @@ When cloud sync is active, every photo card shows a status pill:
 
 Uploads still remain in local storage so the experience stays offline-friendly. The Supabase copy simply gives you a durable backup.
 
-## 📸 Screenshots
+### 📊 Cloud Sync Status Panel
+
+- A new "Cloud backup" panel now sits directly under the Memories photo uploader.
+- It surfaces total uploads, pending queue length, last sync time, recent error (if any), and rolling average latency so you can spot stalls immediately.
+- The panel is accessible (ARIA live region) and reacts in real time thanks to `cloud-sync.js`, which instruments calls to `/.netlify/functions/upload-photo` and caches state in `localStorage` for quick reloads.
+- Badge states:
+   - **Idle** – No uploads yet.
+   - **Syncing** – One or more uploads currently in-flight.
+   - **Backed up** – Latest Supabase call succeeded.
+   - **Needs attention** – The last attempt failed; hover to read the error and press "Retry" on the photo card.
+
+### �️ Troubleshooting Supabase Uploads
+
+1. **Confirm Netlify env vars** – In Site settings → Environment variables ensure `SUPABASE_URL` matches your project URL and `SUPABASE_SECRET_KEY` contains the full secret (either the new `sb_secret_...` string or the legacy service-role JWT). Paste without spaces or quotes.
+2. **Look for helpful errors** – The Netlify function now refuses to execute when the key is malformed and returns:
+
+    ```json
+    {
+       "message": "Supabase service role key is malformed. Please copy the entire key from the Supabase dashboard without spaces.",
+       "hint": "Service role keys are long JWT strings with two dots (\".\")."
+    }
+    ```
+
+    If you see `Invalid Compact JWS` in the response body, the stored key is truncated or corrupted—rotate it from Supabase → Settings → API.
+3. **Run a curl smoke test** – Before trying from the UI, hit the function directly (replace `your-site` with the deployed domain and adjust the hash string to any hex digest you like):
+
+    ```bash
+    curl -sS https://your-site.netlify.app/.netlify/functions/upload-photo \ 
+       -H "Content-Type: application/json" \ 
+       -d '{
+          "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUA...", 
+          "hash": "0123456789abcdef0123456789abcdef", 
+          "metadata": {"source": "curl-test"}
+       }'
+    ```
+
+    A healthy upload returns HTTP 200 with a JSON payload containing `url`, `path`, and `storedAt`. Any `4xx/5xx` body will include `message`, `details`, and `status` to speed up debugging.
+4. **Check Supabase Storage** – Open the Storage browser and verify files appear under the configured bucket/folder. Remember to set the bucket to **public** or create a signed URL policy if you want to keep it private.
+
+If you're still blocked, rotate both the secret key and bucket service role, redeploy on Netlify, and retry the curl command. Nine times out of ten this clears lingering JWT issues.
+
+## �📸 Screenshots
 
 ### Main Memory Page
 
@@ -185,7 +249,8 @@ Test your knowledge about Japan with fun quizzes.
 Japan/
 ├── index.html                # Main HTML structure
 ├── styles.css                # Complete styling
-├── script.js                # Core browser logic (obfuscated build)
+├── script.js                 # Core browser logic (obfuscated build)
+├── cloud-sync.js             # Cloud backup status + fetch instrumentation
 ├── supabase-upload.js        # Cloud backup helper (runs after script.js)
 ├── netlify/
 │   └── functions/
@@ -218,6 +283,63 @@ Works on all modern browsers:
 - Firefox
 - Safari
 - Opera
+
+## 🔧 Troubleshooting
+
+### HTML Validation Errors
+
+If you encounter HTML validation errors during deployment:
+
+1. **Check the error message** in Netlify build logs for specific issues
+2. **Run validation locally**:
+   ```bash
+   npm install
+   npm run lint:html
+   ```
+3. **Common issues and fixes**:
+   - **Missing `<title>` tag**: Ensure your HTML has a `<title>` element inside the `<head>` section
+   - **DOCTYPE formatting**: Use uppercase `<!DOCTYPE html>` at the start of your HTML file
+   - **Self-closing tags**: Properly format meta and link tags (e.g., `<meta charset="UTF-8">` not `<meta charset="UTF-8" />`)
+   - **Element nesting**: Verify all HTML elements are properly nested and closed
+
+4. **Validation rules** are configured in `.htmlvalidate.json` and can be adjusted if needed
+
+### Deployment Issues
+
+If deployment fails:
+
+1. **Check build logs** in Netlify dashboard for detailed error messages
+2. **Verify environment variables** are correctly set (especially for Supabase integration)
+3. **Test locally first**:
+   ```bash
+   netlify dev
+   ```
+4. **Clear cache and redeploy** if issues persist
+
+### Local Development
+
+To run the project locally:
+
+1. **Simple HTTP Server**:
+   ```bash
+   npx http-server -p 8080
+   ```
+   Then open `http://localhost:8080` in your browser
+
+2. **With Netlify Dev** (for testing functions):
+   ```bash
+   npm install -g netlify-cli
+   netlify dev
+   ```
+
+### Data Issues
+
+If memories or data aren't saving:
+
+1. **Check browser console** for JavaScript errors
+2. **Verify localStorage** is enabled in your browser
+3. **Clear browser cache** if data appears corrupted
+4. **Export data regularly** as a backup using the Archive feature
 
 ## 📝 License
 
